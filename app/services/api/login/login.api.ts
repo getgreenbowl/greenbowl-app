@@ -1,4 +1,4 @@
-import baseApi from "../base"
+import { Api } from './../base';
 
 export type LoginType = {
     email: string,
@@ -6,5 +6,5 @@ export type LoginType = {
 }
 
 export const login = (payload: LoginType) => {
-    return baseApi.post('/user/login', {json: payload}).json()
+    return Api.post('/user/login', {json: payload})
 }

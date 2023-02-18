@@ -5,7 +5,7 @@ import { loadString } from "../../utils/storage"
 
 
 export class Api {
-    baseApi =  ky.create({
+   static baseApi =  ky.create({
         prefixUrl: "http://localhost:3002",
         hooks: {
           beforeRequest: [
@@ -17,11 +17,11 @@ export class Api {
         },
       });
     
-      post(url: string, payload) {
+    static  post(url: string, payload) {
         return this.baseApi.post(url, {json: payload}).json()
       }
 
-      get(url: string) {
+     static get(url: string) {
         return this.baseApi.get(url).json()
       }
 }

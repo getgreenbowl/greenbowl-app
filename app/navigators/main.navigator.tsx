@@ -4,9 +4,11 @@ import React from "react"
 import { TextStyle, ViewStyle } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Icon } from "../components"
-import { DemoCommunityScreen, DemoDebugScreen } from "../screens"
-import { DemoPodcastListScreen } from "../screens/DemoPodcastListScreen"
+
 import { HomeScreen } from "../screens/home/home.screen"
+import { MyMenu } from "../screens/my-menu/my-menu.screen"
+import { Preference } from "../screens/preference/preference.screen"
+import { SearchScreen } from "../screens/search/search.screen"
 import { colors, spacing, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./app.navigator"
 
@@ -56,7 +58,7 @@ export function MainNavigator() {
 
       <Tab.Screen
         name="search"
-        component={DemoCommunityScreen}
+        component={SearchScreen}
         options={{
           tabBarLabel: "Search",
           tabBarIcon: ({ focused }) => <Icon icon="community" color={focused && colors.tint} />,
@@ -65,7 +67,7 @@ export function MainNavigator() {
 
       <Tab.Screen
         name="preference"
-        component={DemoPodcastListScreen}
+        component={Preference}
         options={{
           tabBarLabel: "Preference",
           tabBarIcon: ({ focused }) => <Icon icon="podcast" color={focused && colors.tint} />,
@@ -74,7 +76,7 @@ export function MainNavigator() {
 
       <Tab.Screen
         name="mymenu"
-        component={DemoDebugScreen}
+        component={MyMenu}
         options={{
           tabBarLabel: "My menu",
           tabBarIcon: ({ focused }) => <Icon icon="debug" color={focused && colors.tint} />,

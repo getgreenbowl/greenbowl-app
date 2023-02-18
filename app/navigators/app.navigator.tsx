@@ -21,7 +21,8 @@ import {
     LoginScreen, RegisterScreen, // @demo remove-current-line
   } from "../screens"
   import { Onboarding } from "../screens/onboarding/onboarding"
-  import { DemoNavigator, DemoTabParamList } from "./DemoNavigator" // @demo remove-current-line
+  import {  DemoTabParamList } from "./DemoNavigator" // @demo remove-current-line
+import { MainNavigator } from "./main.navigator"
   import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
   
   /**
@@ -77,7 +78,7 @@ import {
             {/* @demo remove-block-end */}
             <Stack.Screen name="Onboarding" component={Onboarding} />
             {/* @demo remove-block-start */}
-            <Stack.Screen name="Demo" component={DemoNavigator} />
+            <Stack.Screen name="Demo" component={MainNavigator} />
           </>
         ) : (
           <>
