@@ -32,7 +32,7 @@ const $aspectRatioBox: ViewStyle & ImageStyle = {
   borderRadius: 4,
   borderWidth: 3,
   borderColor: colors.palette.secondary300,
-  backgroundColor: colors.palette.neutral800,
+  backgroundColor: colors.palette.neutral8,
 }
 
 export const DemoAutoImage: Demo = {

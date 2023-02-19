@@ -6,9 +6,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Icon } from "../components"
 
 import { HomeScreen } from "../screens/home/home.screen"
-import { MyMenu } from "../screens/my-menu/my-menu.screen"
+// import { MyMenu } from "../screens/my-menu/my-menu.screen"
+// import { SearchScreen } from "../screens/search/search.screen"
 import { Preference } from "../screens/preference/preference.screen"
-import { SearchScreen } from "../screens/search/search.screen"
 import { colors, spacing, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./app.navigator"
 
@@ -56,14 +56,14 @@ export function MainNavigator() {
         }}
       />
 
-      <Tab.Screen
+      {/* <Tab.Screen
         name="search"
         component={SearchScreen}
         options={{
           tabBarLabel: "Search",
           tabBarIcon: ({ focused }) => <Icon icon="community" color={focused && colors.tint} />,
         }}
-      />
+      /> */}
 
       <Tab.Screen
         name="preference"
@@ -74,14 +74,14 @@ export function MainNavigator() {
         }}
       />
 
-      <Tab.Screen
+      {/* <Tab.Screen
         name="mymenu"
         component={MyMenu}
         options={{
           tabBarLabel: "My menu",
           tabBarIcon: ({ focused }) => <Icon icon="debug" color={focused && colors.tint} />,
         }}
-      />
+      /> */}
     </Tab.Navigator>
   )
 }
@@ -98,7 +98,8 @@ const $tabBarItem: ViewStyle = {
 const $tabBarLabel: TextStyle = {
   fontSize: 12,
   fontFamily: typography.primary.medium,
-  lineHeight: 16,
+  lineHeight: 18,
+  letterSpacing: 0.5,
   flex: 1,
 }
 

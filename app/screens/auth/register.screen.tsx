@@ -18,7 +18,7 @@ export const RegisterScreen = (props: RegisterScreenProps) => {
             return (
               <Icon
                 icon={isAuthPasswordHidden ? "view" : "hidden"}
-                color={colors.palette.neutral800}
+                color={colors.palette.neutral8}
                 containerStyle={props.style}
                 onPress={() => setIsAuthPasswordHidden(!isAuthPasswordHidden)}
               />

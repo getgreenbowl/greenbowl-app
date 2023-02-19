@@ -33,12 +33,12 @@ const $customTouchableStyle: ViewStyle = {
 
 const $customContainerStyle: ViewStyle = {
   borderTopWidth: 5,
-  borderTopColor: colors.palette.neutral100,
+  borderTopColor: colors.palette.neutral1,
 }
 
 const $flatListStyle: ViewStyle = {
   paddingHorizontal: spacing.extraSmall,
-  backgroundColor: colors.palette.neutral200,
+  backgroundColor: colors.palette.neutral2,
   flex: 1,
   overflow: "scroll",
 }
@@ -103,7 +103,7 @@ export const DemoListItem: Demo = {
         LeftComponent={
           <View style={[$customLeft, { marginEnd: spacing.medium }]}>
             {Array.from({ length: 9 }, (x, i) => i).map((i) => (
-              <Icon key={i} icon="ladybug" color={colors.palette.neutral100} size={20} />
+              <Icon key={i} icon="ladybug" color={colors.palette.neutral1} size={20} />
             ))}
           </View>
         }
@@ -117,7 +117,7 @@ export const DemoListItem: Demo = {
         RightComponent={
           <View style={[$customLeft, { marginStart: spacing.medium }]}>
             {Array.from({ length: 9 }, (x, i) => i).map((i) => (
-              <Icon key={i} icon="ladybug" color={colors.palette.neutral100} size={20} />
+              <Icon key={i} icon="ladybug" color={colors.palette.neutral1} size={20} />
             ))}
           </View>
         }
@@ -171,7 +171,7 @@ export const DemoListItem: Demo = {
 
       <ListItem
         topSeparator
-        textStyle={{ color: colors.palette.neutral100 }}
+        textStyle={{ color: colors.palette.neutral1 }}
         style={$customTouchableStyle}
       >
         Styled Text
@@ -179,7 +179,7 @@ export const DemoListItem: Demo = {
 
       <ListItem
         topSeparator
-        textStyle={{ color: colors.palette.neutral100 }}
+        textStyle={{ color: colors.palette.neutral1 }}
         style={$customTouchableStyle}
         containerStyle={$customContainerStyle}
       >
@@ -187,13 +187,13 @@ export const DemoListItem: Demo = {
       </ListItem>
       <ListItem
         topSeparator
-        textStyle={{ color: colors.palette.neutral100 }}
+        textStyle={{ color: colors.palette.neutral1 }}
         style={$customTouchableStyle}
         containerStyle={$customContainerStyle}
         rightIcon="ladybug"
         leftIcon="ladybug"
-        rightIconColor={colors.palette.neutral100}
-        leftIconColor={colors.palette.neutral100}
+        rightIconColor={colors.palette.neutral1}
+        leftIconColor={colors.palette.neutral1}
       >
         Tinted Icons
       </ListItem>

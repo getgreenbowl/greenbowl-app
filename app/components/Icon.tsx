@@ -107,6 +107,10 @@ export const iconRegistry = {
   slack: require("../../assets/icons/slack.png"),
   view: require("../../assets/icons/view.png"),
   x: require("../../assets/icons/x.png"),
+
+  location: require("../../assets/icons/location.png"),
+  calendar: require("../../assets/icons/calendar.png"),
+  mealFastFood: require("../../assets/icons/meal-fast-food.png")
 }
 
 const $imageStyle: ImageStyle = {

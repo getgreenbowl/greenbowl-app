@@ -361,7 +361,7 @@ export const DemoToggle: Demo = {
           status="error"
           labelStyle={{
             backgroundColor: colors.error,
-            color: colors.palette.neutral100,
+            color: colors.palette.neutral1,
             paddingHorizontal: 5,
           }}
         />
@@ -377,7 +377,7 @@ export const DemoToggle: Demo = {
           containerStyle={{ padding: 10, backgroundColor: colors.error }}
           label="Or, style the entire container"
           status="error"
-          labelStyle={{ color: colors.palette.neutral100 }}
+          labelStyle={{ color: colors.palette.neutral1 }}
         />
       </View>
     </DemoUseCase>,

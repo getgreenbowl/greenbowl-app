@@ -220,14 +220,14 @@ const EpisodeCard = observer(function EpisodeCard({
               <Icon
                 icon="heart"
                 size={ICON_SIZE}
-                color={colors.palette.neutral800} // dark grey
+                color={colors.palette.neutral8} // dark grey
               />
             </Animated.View>
             <Animated.View style={[$iconContainer, animatedUnlikeButtonStyles]}>
               <Icon
                 icon="heart"
                 size={ICON_SIZE}
-                color={colors.palette.primary400} // pink
+                color={colors.palette.primary4} // pink
               />
             </Animated.View>
           </View>
@@ -349,8 +349,8 @@ const $favoriteButton: ViewStyle = {
   borderRadius: 17,
   marginTop: spacing.medium,
   justifyContent: "flex-start",
-  backgroundColor: colors.palette.neutral300,
-  borderColor: colors.palette.neutral300,
+  backgroundColor: colors.palette.neutral3,
+  borderColor: colors.palette.neutral3,
   paddingHorizontal: spacing.medium,
   paddingTop: spacing.micro,
   paddingBottom: 0,
@@ -359,8 +359,8 @@ const $favoriteButton: ViewStyle = {
 }
 
 const $unFavoriteButton: ViewStyle = {
-  borderColor: colors.palette.primary100,
-  backgroundColor: colors.palette.primary100,
+  borderColor: colors.palette.primary1,
+  backgroundColor: colors.palette.primary1,
 }
 
 const $emptyState: ViewStyle = {

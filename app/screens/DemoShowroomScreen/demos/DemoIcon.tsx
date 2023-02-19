@@ -27,7 +27,7 @@ const $customIconContainer: ViewStyle = {
 }
 
 const $customIcon: ImageStyle = {
-  tintColor: colors.palette.neutral100,
+  tintColor: colors.palette.neutral1,
 }
 
 export const DemoIcon: Demo = {
@@ -60,13 +60,13 @@ export const DemoIcon: Demo = {
 
     <DemoUseCase name="Color" description="There's a color prop." layout="row">
       <Icon icon="ladybug" color={colors.palette.accent500} containerStyle={$demoIconContainer} />
-      <Icon icon="ladybug" color={colors.palette.primary500} containerStyle={$demoIconContainer} />
+      <Icon icon="ladybug" color={colors.palette.primary5} containerStyle={$demoIconContainer} />
       <Icon
         icon="ladybug"
         color={colors.palette.secondary500}
         containerStyle={$demoIconContainer}
       />
-      <Icon icon="ladybug" color={colors.palette.neutral700} containerStyle={$demoIconContainer} />
+      <Icon icon="ladybug" color={colors.palette.neutral7} containerStyle={$demoIconContainer} />
       <Icon icon="ladybug" color={colors.palette.angry500} containerStyle={$demoIconContainer} />
     </DemoUseCase>,
 

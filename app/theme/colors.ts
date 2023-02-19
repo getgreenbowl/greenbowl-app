@@ -1,22 +1,41 @@
 // TODO: write documentation for colors and palette in own markdown file and add links from here
 
 const palette = {
-  neutral100: "#FFFFFF",
-  neutral200: "#F4F2F1",
-  neutral300: "#D7CEC9",
-  neutral400: "#B6ACA6",
-  neutral500: "#978F8A",
-  neutral600: "#564E4A",
-  neutral700: "#3C3836",
-  neutral800: "#191015",
-  neutral900: "#000000",
+  // neutral1: "#FFFFFF",
+  // neutral2: "#F4F2F1",
+  // neutral3: "#D7CEC9",
+  // neutral4: "#B6ACA6",
+  // neutral5: "#978F8A",
+  // neutral6: "#564E4A",
+  // neutral7: "#3C3836",
+  // neutral8: "#191015",
+  // neutral9: "#000000",
 
-  primary100: "#F4E0D9",
-  primary200: "#E8C1B4",
-  primary300: "#DDA28E",
-  primary400: "#D28468",
-  primary500: "#C76542",
-  primary600: "#A54F31",
+  neutral1: 'hsl(0, 0%, 99.0%)',
+  neutral2: 'hsl(0, 0%, 97.3%)',
+  neutral3: 'hsl(0, 0%, 95.1%)',
+  neutral4: 'hsl(0, 0%, 93.0%)',
+  neutral5: 'hsl(0, 0%, 90.9%)',
+  neutral6: 'hsl(0, 0%, 88.7%)',
+  neutral7: 'hsl(0, 0%, 85.8%)',
+  neutral8: 'hsl(0, 0%, 78.0%)',
+  neutral9: 'hsl(0, 0%, 56.1%)',
+  neutral10: 'hsl(0, 0%, 52.3%)',
+  neutral11: 'hsl(0, 0%, 43.5%)',
+  neutral12: 'hsl(0, 0%, 9.0%)',
+
+  primary1: 'hsl(165, 60.0%, 98.8%)',
+  primary2: 'hsl(169, 64.7%, 96.7%)',
+  primary3: 'hsl(169, 59.8%, 94.0%)',
+  primary4: 'hsl(169, 53.1%, 90.2%)',
+  primary5: 'hsl(170, 47.1%, 85.0%)',
+  primary6: 'hsl(170, 42.6%, 77.9%)',
+  primary7: 'hsl(170, 39.9%, 68.1%)',
+  primary8: 'hsl(172, 42.1%, 52.5%)',
+  primary9: 'hsl(173, 80.0%, 36.0%)',
+  primary10: 'hsl(173, 83.4%, 32.5%)',
+  primary11: 'hsl(174, 90.0%, 25.2%)',
+  primary12: 'hsl(170, 50.0%, 12.5%)',
 
   secondary100: "#DCDDE9",
   secondary200: "#BCC0D6",
@@ -51,27 +70,27 @@ export const colors = {
   /**
    * The default text color in many components.
    */
-  text: palette.neutral800,
+  text: palette.primary12,
   /**
    * Secondary text information.
    */
-  textDim: palette.neutral600,
+  textDim: palette.neutral11,
   /**
    * The default color of the screen background.
    */
-  background: palette.neutral200,
+  background: palette.neutral2,
   /**
    * The default border color.
    */
-  border: palette.neutral400,
+  border: palette.neutral6,
   /**
    * The main tinting color.
    */
-  tint: palette.primary500,
+  tint: palette.primary9,
   /**
    * A subtle color used for lines.
    */
-  separator: palette.neutral300,
+  separator: palette.neutral4,
   /**
    * Error messages.
    */

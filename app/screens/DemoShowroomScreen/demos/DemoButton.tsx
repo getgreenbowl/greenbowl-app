@@ -16,7 +16,7 @@ const $customButtonTextStyle: TextStyle = {
   textDecorationLine: "underline",
   textDecorationColor: colors.error,
 }
-const $customButtonPressedTextStyle: TextStyle = { color: colors.palette.neutral100 }
+const $customButtonPressedTextStyle: TextStyle = { color: colors.palette.neutral1 }
 const $customButtonRightAccessoryStyle: ViewStyle = {
   width: "53%",
   height: "200%",
@@ -25,7 +25,7 @@ const $customButtonRightAccessoryStyle: ViewStyle = {
   top: 0,
   right: 0,
 }
-const $customButtonPressedRightAccessoryStyle: ImageStyle = { tintColor: colors.palette.neutral100 }
+const $customButtonPressedRightAccessoryStyle: ImageStyle = { tintColor: colors.palette.neutral1 }
 
 export const DemoButton: Demo = {
   name: "Button",

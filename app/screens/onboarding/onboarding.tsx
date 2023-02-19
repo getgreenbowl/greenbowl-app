@@ -2,6 +2,7 @@ import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import { TextStyle, View, ViewStyle } from "react-native"
 import { Button, Text } from "../../components"
+import { Group } from "../../components/group.component"
 import { useArray } from "../../hooks/use-array"
 import { useStores } from "../../models" // @demo remove-current-line
 import { AppStackScreenProps } from "../../navigators" // @demo remove-current-line
@@ -22,23 +23,28 @@ const possibleTags = [
   "kathyawadi",
   "jain",
   "swaminarayan",
-  "fruits"
+  "fruits",
 ]
+
+const possibleTimes = ["Lunch", "Dinner"]
 
 export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
   _props, // @demo remove-current-line
 ) {
   // @demo remove-block-start
   const { navigation } = _props
-  const {insertOrRemove, value} = useArray({
-    value: []
+  const { insertOrRemove, value } = useArray({
+    value: [],
+  })
+  const { insertOrRemove: indertTimes, value: times } = useArray({
+    value: [],
   })
   const {
     authenticationStore: { logout },
   } = useStores()
 
   function goNext() {
-    navigation.navigate("Demo", { screen: "DemoShowroom" })
+    navigation.navigate("main", { screen: "home" })
   }
 
   useHeader({
@@ -70,7 +76,26 @@ export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
             )
           })}
         </View>
-        <Button testID="next-screen-button" preset="reversed" onPress={goNext} text="Let's go!" />
+
+        <View>
+          <Text preset="subheading">I will have</Text>
+          <Group style={$group}>
+            {possibleTimes.map((time) => {
+              return (
+                <TagPill
+                  size="large"
+                  style={$timesPill}
+                  onPress={() => indertTimes(time)}
+                  tag={time}
+                  selected={times.includes(time)}
+                  key={time}
+                />
+              )
+            })}
+          </Group>
+
+          <Button testID="next-screen-button" preset="reversed" onPress={goNext} text="Let's go!" />
+        </View>
       </View>
     </View>
   )
@@ -98,7 +123,7 @@ const $bottomContainer: ViewStyle = {
   flexShrink: 1,
   flexGrow: 1,
   flexBasis: "43%",
-  backgroundColor: colors.palette.neutral100,
+  backgroundColor: colors.palette.neutral1,
   borderTopLeftRadius: 16,
   borderTopRightRadius: 16,
   paddingHorizontal: spacing.large,
@@ -107,4 +132,14 @@ const $bottomContainer: ViewStyle = {
 
 const $welcomeHeading: TextStyle = {
   marginBottom: spacing.medium,
+}
+
+const $timesPill: ViewStyle = {
+  flexBasis: "50%",
+  margin: 0,
+}
+
+const $group: ViewStyle = {
+  marginBottom: spacing.medium,
+  marginTop: spacing.tiny,
 }

@@ -146,7 +146,7 @@ export const DemoCard: Demo = {
         heading="Style the Heading"
         headingStyle={{ color: colors.error }}
         content="Style the Content"
-        contentStyle={{ backgroundColor: colors.error, color: colors.palette.neutral100 }}
+        contentStyle={{ backgroundColor: colors.error, color: colors.palette.neutral1 }}
         footer="Style the Footer"
         footerStyle={{
           textDecorationLine: "underline line-through",
