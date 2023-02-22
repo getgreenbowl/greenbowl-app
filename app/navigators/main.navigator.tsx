@@ -52,7 +52,7 @@ export function MainNavigator() {
         component={HomeScreen}
         options={{
           tabBarLabel: "Home",
-          tabBarIcon: ({ focused }) => <Icon icon="components" color={focused && colors.tint} />,
+          tabBarIcon: ({ focused }) => <Icon icon="components" color={focused && colors.purpleBg} />,
         }}
       />
 
@@ -61,7 +61,7 @@ export function MainNavigator() {
         component={SearchScreen}
         options={{
           tabBarLabel: "Search",
-          tabBarIcon: ({ focused }) => <Icon icon="community" color={focused && colors.tint} />,
+          tabBarIcon: ({ focused }) => <Icon icon="community" color={focused && colors.purpleBg} />,
         }}
       /> */}
 
@@ -70,7 +70,7 @@ export function MainNavigator() {
         component={Preference}
         options={{
           tabBarLabel: "Preference",
-          tabBarIcon: ({ focused }) => <Icon icon="podcast" color={focused && colors.tint} />,
+          tabBarIcon: ({ focused }) => <Icon icon="podcast" color={focused && colors.purpleBg} />,
         }}
       />
 
@@ -88,7 +88,7 @@ export function MainNavigator() {
 
 const $tabBar: ViewStyle = {
   backgroundColor: colors.background,
-  borderTopColor: colors.transparent,
+  borderTopColor: colors.transparent
 }
 
 const $tabBarItem: ViewStyle = {

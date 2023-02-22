@@ -8,7 +8,6 @@ import { useStores } from "../../models" // @demo remove-current-line
 import { AppStackScreenProps } from "../../navigators" // @demo remove-current-line
 import { colors, spacing } from "../../theme"
 import { useHeader } from "../../utils/useHeader" // @demo remove-current-line
-import { useSafeAreaInsetsStyle } from "../../utils/useSafeAreaInsetsStyle"
 import { TagPill } from "./components/tag-pill.component"
 
 interface OnboardingProps extends AppStackScreenProps<"Onboarding"> {} // @demo remove-current-line
@@ -26,7 +25,7 @@ const possibleTags = [
   "fruits",
 ]
 
-const possibleTimes = ["Lunch", "Dinner"]
+const possibleTimes = ["Lunch", "Dinner", "Both"] as const;
 
 export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
   _props, // @demo remove-current-line
@@ -36,12 +35,13 @@ export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
   const { insertOrRemove, value } = useArray({
     value: [],
   })
-  const { insertOrRemove: indertTimes, value: times } = useArray({
+  const { insertOrRemove: insertTimes, value: times, remove } = useArray({
     value: [],
   })
   const {
     authenticationStore: { logout },
-  } = useStores()
+  } = useStores();
+
 
   function goNext() {
     navigation.navigate("main", { screen: "home" })
@@ -52,7 +52,21 @@ export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
   })
   // @demo remove-block-end
 
-  const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
+  // const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"]);
+
+
+  const handleTimeSelection = (item) => {    
+      if(item === "Both") {
+        insertTimes(item);
+        remove('Lunch');
+        remove('Dinner');
+      }else {
+        insertTimes(item);
+        remove('Both')
+      }
+  }
+
+ 
 
   return (
     <View style={$container}>
@@ -63,7 +77,7 @@ export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
         <Text preset="subheading">let us know your taste.</Text>
       </View>
 
-      <View style={[$bottomContainer, $bottomContainerInsets]}>
+      <View style={$bottomContainer}>
         <View style={$pillContainer}>
           {possibleTags.map((item) => {
             return (
@@ -84,8 +98,8 @@ export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
               return (
                 <TagPill
                   size="large"
-                  style={$timesPill}
-                  onPress={() => indertTimes(time)}
+                  style={{...$timesPill,...$mx}}
+                  onPress={() => handleTimeSelection(time)}
                   tag={time}
                   selected={times.includes(time)}
                   key={time}
@@ -135,8 +149,11 @@ const $welcomeHeading: TextStyle = {
 }
 
 const $timesPill: ViewStyle = {
-  flexBasis: "50%",
-  margin: 0,
+  flexBasis: "30%",
+}
+
+const $mx: ViewStyle = {
+  marginVertical: 1
 }
 
 const $group: ViewStyle = {

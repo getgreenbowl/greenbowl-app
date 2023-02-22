@@ -1,10 +1,10 @@
 {
-  "name": "HelloWorld",
-  "displayName": "HelloWorld",
+  "name": "mealService",
+  "displayName": "mealService",
   "expo": {
-    "name": "HelloWorld",
-    "slug": "HelloWorld",
-    "scheme": "helloworld",
+    "name": "mealService",
+    "slug": "mealService",
+    "scheme": "mealService",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/app-icon-all.png",
@@ -17,7 +17,9 @@
       "fallbackToCacheTimeout": 0
     },
     "jsEngine": "hermes",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "android": {
       "icon": "./assets/images/app-icon-android-legacy.png",
       "package": "com.helloworld",
@@ -48,6 +50,11 @@
         "image": "./assets/images/splash-logo-web.png",
         "resizeMode": "contain",
         "backgroundColor": "#191015"
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5f65f6a4-4919-4ffc-99a6-bb5fdb155a12"
       }
     }
   }

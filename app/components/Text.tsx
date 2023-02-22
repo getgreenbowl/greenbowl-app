@@ -31,7 +31,8 @@ export interface TextProps extends RNTextProps {
   /**
    * Children components.
    */
-  children?: React.ReactNode
+  children?: React.ReactNode,
+  mute?: boolean
 }
 
 /**
@@ -39,7 +40,7 @@ export interface TextProps extends RNTextProps {
  * This component is a HOC over the built-in React Native one.
  */
 export function Text(props: TextProps) {
-  const { weight, size, text, children, style: $styleOverride, ...rest } = props
+  const { weight, size, text, children, mute= false, style: $styleOverride, ...rest } = props
 
   const content =  text || children
 
@@ -49,6 +50,7 @@ export function Text(props: TextProps) {
     $fontWeightStyles[weight],
     $sizeStyles[size],
     $styleOverride,
+    mute?$mute:{}
   ]
 
   return (
@@ -77,6 +79,11 @@ const $baseStyle: StyleProp<TextStyle> = [
   $fontWeightStyles.normal,
   { color: colors.text },
 ]
+
+
+const $mute: TextStyle = {
+  color: colors.palette.neutral11
+}
 
 const $presets = {
   default: $baseStyle,

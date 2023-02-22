@@ -1,10 +1,10 @@
 import React from "react"
-import { ViewStyle, TextStyle, View } from "react-native"
+import { ViewStyle, TextStyle, View, Pressable } from "react-native"
 import { Card, Icon, Text } from "../../../components"
 import { Group } from "../../../components/group.component"
 import { colors, spacing } from "../../../theme"
 
-export const ScheduleYourMeal = () => {
+export const ScheduleYourMeal = ({handleSnapPress}) => {
   return (
     <Card
       style={$cardContainer}
@@ -17,14 +17,17 @@ export const ScheduleYourMeal = () => {
         <View>
             <SingleSelector 
             tx="Select Address"
+            handleSnapPress={handleSnapPress}
             icon={<Icon icon="location" size={22} color={colors.palette.neutral1} />}
             />
             <SingleSelector 
             tx="Choose your meals"
+            handleSnapPress={handleSnapPress}
             icon={<Icon icon="mealFastFood" size={22} color={colors.palette.neutral1} />}
             />
             <SingleSelector 
             tx="Select days"
+            handleSnapPress={handleSnapPress}
             icon={<Icon icon="calendar" size={22} color={colors.palette.neutral1} />}
             />
         </View>
@@ -34,8 +37,10 @@ export const ScheduleYourMeal = () => {
 }
 
 
-function SingleSelector({tx, icon}: {tx: string, icon: React.ReactNode}) {
-    return  <View style={$selectors}>
+function SingleSelector({tx, icon, handleSnapPress}: {tx: string, icon: React.ReactNode, handleSnapPress: any}) {
+  
+    return <Pressable onPress={handleSnapPress} >
+   <View style={$selectors}>
     <Group>
     {icon}
       <Text style={$selectorText} size="md">
@@ -45,6 +50,8 @@ function SingleSelector({tx, icon}: {tx: string, icon: React.ReactNode}) {
 
     <Icon icon="caretRight" color={colors.palette.neutral1} />
   </View>
+    </Pressable>
+  
 }
 
 const $cardContainer: ViewStyle = {
@@ -53,7 +60,7 @@ const $cardContainer: ViewStyle = {
 }
 
 const $selectors: ViewStyle = {
-  backgroundColor: colors.palette.primary10,
+  backgroundColor: colors.orangeBg,
   paddingVertical: spacing.medium,
   paddingHorizontal: spacing.small,
   borderRadius: spacing.borderRadius,
@@ -65,4 +72,5 @@ const $selectors: ViewStyle = {
 const $selectorText: TextStyle = {
   color: colors.palette.neutral1,
   paddingLeft: spacing.small,
+  fontWeight: '900'
 }

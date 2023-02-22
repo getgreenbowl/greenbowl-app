@@ -1,8 +1,15 @@
 import React from 'react'
-import { View, ViewStyle } from 'react-native'
+import { View, ViewStyle } from 'react-native';
 
-export const Group = ({children, style = {}}: {style?: ViewStyle, children: React.ReactNode}) => {
-  const $style = [style, $group]
+
+type GroupProps = {
+  content?: keyof typeof $alignment,
+  style?: ViewStyle, 
+  children: React.ReactNode
+}
+
+export const Group = ({children, style = {}, content = 'left'}: GroupProps) => {
+  const $style = [style, $group, $alignment[content]]
 
   return (
     <View style={$style}>
@@ -11,10 +18,21 @@ export const Group = ({children, style = {}}: {style?: ViewStyle, children: Reac
   )
 }
 
+const $alignment = {
+  'space-between': {
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  } as ViewStyle,
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  } as ViewStyle,
+  left: {
+    alignItems: 'center'
+  } as ViewStyle
+}
 
 const $group: ViewStyle = {
   flexDirection: "row",
-  flexWrap: "wrap",
-  justifyContent: 'center',
-  alignItems: 'center'
+  // flexWrap: "wrap"
   }

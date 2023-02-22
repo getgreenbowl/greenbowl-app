@@ -19,7 +19,7 @@ export const TagPill = ({
     const $selected = selected ? $variations.selected : $variations.default;
   const $styles = [$pillStyle, $size[size], $selected, style];
 
-  const $textSize = size === 'large' ? 'md' : 'sm'
+  const $textSize = size === 'large' ? 'sm' : 'xs'
 
   return (
     <Pressable style={$styles} onPress={onPress}>
