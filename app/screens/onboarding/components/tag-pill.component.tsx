@@ -36,7 +36,7 @@ const $variations = {
 
   selected: {
     backgroundColor: colors.palette.primary1,
-    borderColor: colors.palette.primary9,
+    borderColor: colors.purpleBg,
   } as StyleProp<ViewStyle>,
 }
 
@@ -46,8 +46,7 @@ const $size = {
     paddingVertical: spacing.micro,
   },
   large: {
-    paddingHorizontal: spacing.large,
-    paddingVertical: spacing.small,
+    paddingVertical: spacing.tiny,
   } as ViewStyle,
 }
 const $pillStyle: ViewStyle = {

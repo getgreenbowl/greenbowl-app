@@ -78,7 +78,7 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
       contentContainerStyle={$screenContentContainer}
       safeAreaEdges={["top", "bottom"]}
     >
-      <Text testID="login-heading" text="Meal Service" preset="heading" style={$signIn} />
+      <Text testID="login-heading" text="Tastebox" preset="heading" style={$signIn} />
       <Text
         preset="subheading"
         text="Log in to your account using your mobile no."

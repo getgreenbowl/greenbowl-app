@@ -7,7 +7,6 @@ type Weights = keyof typeof typography.primary
 type Presets = keyof typeof $presets
 
 export interface TextProps extends RNTextProps {
-
   /**
    * The text to display if not using `tx` or nested components.
    */
@@ -31,8 +30,9 @@ export interface TextProps extends RNTextProps {
   /**
    * Children components.
    */
-  children?: React.ReactNode,
+  children?: React.ReactNode
   mute?: boolean
+  white?: boolean
 }
 
 /**
@@ -40,17 +40,28 @@ export interface TextProps extends RNTextProps {
  * This component is a HOC over the built-in React Native one.
  */
 export function Text(props: TextProps) {
-  const { weight, size, text, children, mute= false, style: $styleOverride, ...rest } = props
+  const {
+    weight,
+    white = false,
+    size,
+    text,
+    children,
+    mute = false,
+    style: $styleOverride,
+    ...rest
+  } = props
 
-  const content =  text || children
+  const content = text || children;
+  if (!content) return null;
 
-  const preset: Presets = $presets[props.preset] ? props.preset : "default"
+  const preset: Presets = $presets[props.preset] ? props.preset : "default";
   const $styles = [
     $presets[preset],
     $fontWeightStyles[weight],
     $sizeStyles[size],
     $styleOverride,
-    mute?$mute:{}
+    mute ? $mute : {},
+    white? {color: colors.palette.neutral1}: {}
   ]
 
   return (
@@ -80,9 +91,8 @@ const $baseStyle: StyleProp<TextStyle> = [
   { color: colors.text },
 ]
 
-
 const $mute: TextStyle = {
-  color: colors.palette.neutral11
+  color: colors.palette.neutral11,
 }
 
 const $presets = {

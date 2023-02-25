@@ -1,14 +1,27 @@
 import React from "react"
-import { View, ViewStyle, ScrollView, Pressable } from "react-native"
-import { Icon, Text } from "../../../components"
+import { View, ViewStyle, ScrollView, Pressable, TextStyle } from "react-native"
+import { Icon, Text, Toggle } from "../../../components"
 import { Group } from "../../../components/group.component"
 import { colors, spacing } from "../../../theme"
 
 type AddressOptionType = {
   cancel: () => void
+  select: (address: any) => void
+  selected: string
 }
 
-export const AddressOptions = ({ cancel }: AddressOptionType) => {
+const address = [
+  {
+    address: "419 park paradise, vadsar, vadodara",
+    type: "work",
+  },
+  {
+    address: "c-14 yagnapurush residency, kalali, vadodara",
+    type: "home",
+  },
+] as const
+
+export const AddressOptions = ({ cancel, select, selected }: AddressOptionType) => {
   return (
     <ScrollView style={$container}>
       <Group content="space-between">
@@ -25,28 +38,27 @@ export const AddressOptions = ({ cancel }: AddressOptionType) => {
           Add new address
         </Text>
       </Group>
-      <Group style={$spacing}>
-        <Icon icon="home" size={30} />
-        <View>
-          <Text weight="semiBold" style={$spacingLeft} size="lg">
-            Home
-          </Text>
-          <Text style={$spacingLeft} size="sm" ellipsizeMode="tail" numberOfLines={1}>
-            c-14 yagnapurush residency, kalali, vadodara
-          </Text>
-        </View>
-      </Group>
-      <Group style={$spacing}>
-        <Icon icon="briefcase" size={30} />
-        <View>
-          <Text weight="semiBold" style={$spacingLeft} size="lg">
-            Work
-          </Text>
-          <Text style={$spacingLeft} size="sm">
-            419 park paradise, vadsar, vadodara
-          </Text>
-        </View>
-      </Group>
+      {address.map((add) => {
+        return (
+          <Pressable key={add.address} onPress={() => select(add)} >
+            <Group style={$spacing} >
+              <Icon icon={add.type} size={30} />
+              <View>
+                <Group content="space-between">
+                <Text weight="semiBold" style={$spacingLeft} size="lg">
+                  {add.type}
+                </Text>
+                <Toggle variant="radio" value={add.address === selected}   />
+                </Group>
+                
+                <Text style={$spacingLeft} size="sm" ellipsizeMode="tail" numberOfLines={1}>
+                  {add.address}
+                </Text>
+              </View>
+            </Group>
+          </Pressable>
+        )
+      })}
     </ScrollView>
   )
 }
@@ -57,8 +69,11 @@ const $container: ViewStyle = {
 
 const $spacing: ViewStyle = {
   paddingTop: spacing.large,
+  alignSelf: 'stretch'
 }
 
-const $spacingLeft: ViewStyle = {
+
+const $spacingLeft: TextStyle = {
   paddingLeft: spacing.small,
+  textTransform: "capitalize",
 }

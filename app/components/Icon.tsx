@@ -113,7 +113,7 @@ export const iconRegistry = {
   mealFastFood: require("../../assets/icons/meal-fast-food.png"),
   plusCircle: require("../../assets/icons/plus-circle.png"),
   home: require("../../assets/icons/home.png"),
-  briefcase: require("../../assets/icons/briefcase.png"),
+  work: require("../../assets/icons/briefcase.png"),
 }
 
 const $imageStyle: ImageStyle = {
