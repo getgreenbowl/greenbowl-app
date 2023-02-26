@@ -78,22 +78,25 @@ export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
       </View>
 
       <View style={$bottomContainer}>
-        <View style={$pillContainer}>
+        <Group style={$pillContainer} wrap>
           {possibleTags.map((item) => {
             return (
               <TagPill
                 tag={item}
                 key={item}
+                style={{
+                  marginVertical: spacing.tiny
+                }}
                 onPress={() => insertOrRemove(item)}
                 selected={value.includes(item)}
               />
             )
           })}
-        </View>
+        </Group>
 
         <View>
           <Text preset="subheading">I will have</Text>
-          <Group style={$group}>
+          <Group style={$group} content="space-between">
             {possibleTimes.map((time) => {
               return (
                 <TagPill
@@ -136,7 +139,7 @@ const $topContainer: ViewStyle = {
 const $bottomContainer: ViewStyle = {
   flexShrink: 1,
   flexGrow: 1,
-  flexBasis: "43%",
+  // flexBasis: "43%",
   backgroundColor: colors.palette.neutral1,
   borderTopLeftRadius: 16,
   borderTopRightRadius: 16,

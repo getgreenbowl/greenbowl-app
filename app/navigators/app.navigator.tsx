@@ -22,6 +22,7 @@ import {
   RegisterScreen, // @demo remove-current-line
 } from "../screens"
 import { Onboarding } from "../screens/onboarding/onboarding"
+import { SelectDays } from "../screens/select-days/select-days"
 import { MainNavigator, MainTabParamList } from "./main.navigator"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 
@@ -42,8 +43,8 @@ export type AppStackParamList = {
   Onboarding: undefined
   Login: undefined
   Register: undefined
-  main: NavigatorScreenParams<MainTabParamList> // @demo remove-current-line
-  // 🔥 Your screens go here
+  main: NavigatorScreenParams<MainTabParamList>
+  selectDays: undefined
 }
 
 /**
@@ -79,6 +80,7 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="Onboarding" component={Onboarding} />
           {/* @demo remove-block-start */}
           <Stack.Screen name="main" component={MainNavigator} />
+          <Stack.Screen name='selectDays' component={SelectDays} />
         </>
       ) : (
         <>

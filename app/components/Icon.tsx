@@ -54,7 +54,7 @@ export function Icon(props: IconProps) {
   const {
     icon,
     color,
-    size,
+    size = 20,
     style: $imageStyleOverride,
     containerStyle: $containerStyleOverride,
     ...WrapperProps
@@ -114,6 +114,8 @@ export const iconRegistry = {
   plusCircle: require("../../assets/icons/plus-circle.png"),
   home: require("../../assets/icons/home.png"),
   work: require("../../assets/icons/briefcase.png"),
+  edit: require("../../assets/icons/edit.png"),
+  analytics: require("../../assets/icons/analytics.png")
 }
 
 const $imageStyle: ImageStyle = {

@@ -52,7 +52,6 @@ const $size = {
 const $pillStyle: ViewStyle = {
   borderWidth: 1,
   borderRadius: spacing.borderRadius,
-  margin: 5,
   justifyContent: 'center',
   alignItems: 'center'
 }

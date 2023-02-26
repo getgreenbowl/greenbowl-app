@@ -1,13 +1,13 @@
 import React from "react"
-import { View, ViewStyle, ScrollView, Pressable, TextStyle } from "react-native"
-import { Icon, Text, Toggle } from "../../../components"
+import { Pressable, ScrollView, TextStyle, View, ViewStyle } from "react-native"
+import { Icon, Text } from "../../../components"
 import { Group } from "../../../components/group.component"
 import { colors, spacing } from "../../../theme"
 
 type AddressOptionType = {
   cancel: () => void
   select: (address: any) => void
-  selected: string
+  // selected: string
 }
 
 const address = [
@@ -21,7 +21,7 @@ const address = [
   },
 ] as const
 
-export const AddressOptions = ({ cancel, select, selected }: AddressOptionType) => {
+export const AddressOptions = ({ cancel, select }: AddressOptionType) => {
   return (
     <ScrollView style={$container}>
       <Group content="space-between">
@@ -48,10 +48,8 @@ export const AddressOptions = ({ cancel, select, selected }: AddressOptionType) 
                 <Text weight="semiBold" style={$spacingLeft} size="lg">
                   {add.type}
                 </Text>
-                <Toggle variant="radio" value={add.address === selected}   />
                 </Group>
-                
-                <Text style={$spacingLeft} size="sm" ellipsizeMode="tail" numberOfLines={1}>
+                <Text style={$spacingLeft} size="sm">
                   {add.address}
                 </Text>
               </View>

@@ -4,7 +4,7 @@ import { Card, Icon, Text } from "../../../components"
 import { Group } from "../../../components/group.component"
 import { colors, spacing } from "../../../theme"
 
-export const ScheduleYourMeal = ({ handleSnapPress, address }) => {
+export const ScheduleYourMeal = ({ handleAction, address }) => {
   return (
     <Card
       style={$cardContainer}
@@ -15,22 +15,26 @@ export const ScheduleYourMeal = ({ handleSnapPress, address }) => {
       }
       ContentComponent={
         <View>
-          <SingleSelector
-            tx="Select Address"
-            value={address}
-            handleSnapPress={handleSnapPress}
-            icon={<Icon icon="location" size={22} color={colors.palette.neutral1} />}
-          />
-          <SingleSelector
-            tx="Choose your meals"
-            handleSnapPress={handleSnapPress}
-            icon={<Icon icon="mealFastFood" size={22} color={colors.palette.neutral1} />}
-          />
-          <SingleSelector
-            tx="Select days"
-            handleSnapPress={handleSnapPress}
-            icon={<Icon icon="calendar" size={22} color={colors.palette.neutral1} />}
-          />
+         
+          <Pressable onPress={() => handleAction('meal')}>
+            <SingleSelector
+              tx="Choose your meals"
+              icon={<Icon icon="mealFastFood" size={22} color={colors.palette.neutral1} />}
+            />
+          </Pressable>
+          <Pressable onPress={() => handleAction('days')}>
+            <SingleSelector
+              tx="Select days"
+              icon={<Icon icon="calendar" size={22} color={colors.palette.neutral1} />}
+            />
+          </Pressable>
+          <Pressable onPress={() => handleAction('address')}>
+            <SingleSelector
+              tx="Select Address"
+              value={address}
+              icon={<Icon icon="location" size={22} color={colors.palette.neutral1} />}
+            />
+          </Pressable>
         </View>
       }
     />
@@ -40,34 +44,28 @@ export const ScheduleYourMeal = ({ handleSnapPress, address }) => {
 function SingleSelector({
   tx,
   icon,
-  handleSnapPress,
   value,
 }: {
   tx: string
   icon: React.ReactNode
-  handleSnapPress: any
   value?: string
 }) {
   return (
-    <Pressable onPress={handleSnapPress}>
-      <View style={$selectors}>
-        <Group content="space-between">
-          <Group>
-            {icon}
-            <View style={{paddingLeft: spacing.small}}>
+    <View style={$selectors}>
+      <Group content="space-between">
+        <Group>
+          {icon}
+          <View style={{ paddingLeft: spacing.small }}>
             <Text style={$selectorText} size="md">
               {tx}
             </Text>
-            <Text text={value} white  ellipsizeMode="tail" numberOfLines={1} />
-            </View>
-         
-          </Group>
-
-          <Icon icon="caretRight" color={colors.palette.neutral1} />
+            <Text text={value} white ellipsizeMode="tail" numberOfLines={1} />
+          </View>
         </Group>
-     
-      </View>
-    </Pressable>
+
+        <Icon icon="caretRight" color={colors.palette.neutral1} />
+      </Group>
+    </View>
   )
 }
 

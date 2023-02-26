@@ -4,27 +4,17 @@ import React from "react"
 import { TextStyle, ViewStyle } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Icon } from "../components"
-
+import { Analytics } from "../screens/analytics/analytics"
 import { HomeScreen } from "../screens/home/home.screen"
-// import { MyMenu } from "../screens/my-menu/my-menu.screen"
-// import { SearchScreen } from "../screens/search/search.screen"
-import { Preference } from "../screens/preference/preference.screen"
 import { colors, spacing, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./app.navigator"
 
 
 export type MainTabParamList = {
   home: undefined
-  search: undefined
-  preference: undefined
-  mymenu: undefined
+  analytics: undefined
 }
 
-/**
- * Helper for automatically generating navigation prop types for each route.
- *
- * More info: https://reactnavigation.org/docs/typescript/#organizing-types
- */
 export type MainTabScreenProps<T extends keyof MainTabParamList> = CompositeScreenProps<
   BottomTabScreenProps<MainTabParamList, T>,
   AppStackScreenProps<keyof AppStackParamList>
@@ -52,36 +42,18 @@ export function MainNavigator() {
         component={HomeScreen}
         options={{
           tabBarLabel: "Home",
-          tabBarIcon: ({ focused }) => <Icon icon="components" color={focused && colors.purpleBg} />,
+          tabBarIcon: ({ focused }) => <Icon icon="home"  color={focused && colors.purpleBg} />,
         }}
       />
-
-      {/* <Tab.Screen
-        name="search"
-        component={SearchScreen}
-        options={{
-          tabBarLabel: "Search",
-          tabBarIcon: ({ focused }) => <Icon icon="community" color={focused && colors.purpleBg} />,
-        }}
-      /> */}
 
       <Tab.Screen
-        name="preference"
-        component={Preference}
+        name="analytics"
+        component={Analytics}
         options={{
-          tabBarLabel: "Preference",
-          tabBarIcon: ({ focused }) => <Icon icon="podcast" color={focused && colors.purpleBg} />,
+          tabBarLabel: "Analytics",
+          tabBarIcon: ({ focused }) => <Icon icon='analytics'   color={focused && colors.purpleBg} />,
         }}
       />
-
-      {/* <Tab.Screen
-        name="mymenu"
-        component={MyMenu}
-        options={{
-          tabBarLabel: "My menu",
-          tabBarIcon: ({ focused }) => <Icon icon="debug" color={focused && colors.tint} />,
-        }}
-      /> */}
     </Tab.Navigator>
   )
 }

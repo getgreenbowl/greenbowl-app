@@ -1,27 +1,34 @@
-import React, { useCallback, useRef, useMemo, useState } from "react"
+import React, { useCallback, useState } from "react"
 import { TextStyle, ViewStyle } from "react-native"
+import Modal from "react-native-modal"
 import { Screen, Text } from "../../components"
-import { colors, spacing } from "../../theme"
-import { ScheduleYourMeal } from "./components/schedule-your-meal"
-import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from "@gorhom/bottom-sheet"
-import { AddressOptions } from "./components/address-options"
-import { YourMeal } from "./components/your-meal"
 import { Spacer } from "../../components/spacer"
+import { AppStackScreenProps } from "../../navigators"
+import { colors, spacing } from "../../theme"
+import { AddressOptions } from "./components/address-options"
+import { ScheduleYourMeal } from "./components/schedule-your-meal"
+import { YourMeal } from "./components/your-meal"
 
-export const HomeScreen = () => {
-  const sheetRef = useRef<BottomSheet>(null)
-  const snapPoints = useMemo(() => ["50%"], [])
+interface HomeProps extends AppStackScreenProps<"main"> {}
+
+export const HomeScreen = (props: HomeProps) => {
+  const [showAddress, setshowAddress] = useState(false)
   const [address, setadress] = useState<{ address: string; type: "work" | "home" | "other" }>({
     address: "",
     type: "other",
   })
 
-  const handleSnapPress = useCallback(() => {
-    sheetRef.current?.snapToIndex(0)
+  const handleAction = useCallback((action: "address" | "meal" | "days") => {
+    if (action === "address") {
+      setshowAddress(true)
+    }
+    if (action === "days") {
+      props.navigation.push("selectDays")
+    }
   }, [])
 
   const closeSheet = () => {
-    sheetRef.current?.close()
+    setshowAddress(false)
   }
 
   const selectAddress = (add) => {
@@ -29,47 +36,35 @@ export const HomeScreen = () => {
     closeSheet()
   }
 
-  const renderBackdrop = useCallback(
-    (props) => <BottomSheetBackdrop {...props} opacity={1} onPress={closeSheet} />,
-    [],
-  )
-
   return (
-    <Screen
-      preset="scroll"
-      StatusBarProps={{
-        backgroundColor: colors.purpleBg,
-        style: "light",
-      }}
-      statusBarStyle="dark"
-      safeAreaEdges={["top"]}
-      contentContainerStyle={$container}
-    >
-      <Text preset="heading" style={$title}>
-        Hello, vishal
-      </Text>
-      <Text style={$tagline}>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo, iusto.
-      </Text>
-
-      <YourMeal />
-
-      <Spacer />
-
-      <ScheduleYourMeal address={address.address} handleSnapPress={handleSnapPress} />
-
-      <BottomSheet
-        ref={sheetRef}
-        snapPoints={snapPoints}
-        backdropComponent={renderBackdrop}
-        enablePanDownToClose
-        index={-1}
+    <>
+      <Screen
+        preset="scroll"
+        StatusBarProps={{
+          backgroundColor: colors.purpleBg,
+          style: "light",
+        }}
+        safeAreaEdges={["top"]}
+        contentContainerStyle={$container}
       >
-        <BottomSheetView>
-          <AddressOptions selected={address.address} select={selectAddress} cancel={closeSheet} />
-        </BottomSheetView>
-      </BottomSheet>
-    </Screen>
+        <Text preset="heading" style={$title}>
+          Hello, vishal
+        </Text>
+        <Text style={$tagline}>A freindly reminder to stay hydrated and drink water.</Text>
+
+        <YourMeal />
+
+        <Spacer />
+
+        <ScheduleYourMeal address={address.address} handleAction={handleAction} />
+      </Screen>
+
+      <Modal
+        isVisible={showAddress}
+      >
+        <AddressOptions select={selectAddress} cancel={closeSheet} />
+      </Modal>
+    </>
   )
 }
 
