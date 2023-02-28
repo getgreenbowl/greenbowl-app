@@ -49,12 +49,3 @@ export const Days = () => {
     />
   )
 }
-
-// const $day: ViewStyle = {
-//     borderWidth: 1,
-//     borderRadius: spacing.borderRadius,
-//     alignSelf: "flex-start",
-//     paddingVertical: spacing.micro,
-//     paddingHorizontal: spacing.tiny + 5,
-//     flexWrap: "wrap",
-//   }

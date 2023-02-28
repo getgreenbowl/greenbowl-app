@@ -7,9 +7,9 @@ import React from "react"
 import { AppRegistry } from "react-native"
 import RNBootSplash from "react-native-bootsplash"
 
-function IgniteApp() {
+function TasteBoxApp() {
   return <App hideSplashScreen={RNBootSplash.hide} />
 }
 
-AppRegistry.registerComponent("HelloWorld", () => IgniteApp)
+AppRegistry.registerComponent("HelloWorld", () => TasteBoxApp)
 export default App

@@ -9,7 +9,7 @@ export const ScheduleYourMeal = ({ handleAction, address }) => {
     <Card
       style={$cardContainer}
       HeadingComponent={
-        <Text size="lg" weight="semiBold">
+        <Text size="md" weight="semiBold">
           Schedule your meal
         </Text>
       }
@@ -35,6 +35,13 @@ export const ScheduleYourMeal = ({ handleAction, address }) => {
               icon={<Icon icon="location" size={22} color={colors.palette.neutral1} />}
             />
           </Pressable>
+          <Pressable onPress={() => handleAction('address')}>
+            <SingleSelector
+              tx="Confirm and Pay"
+              value={address}
+              icon={<Icon icon="location" size={22} color={colors.palette.neutral1} />}
+            />
+          </Pressable>
         </View>
       }
     />
@@ -56,10 +63,10 @@ function SingleSelector({
         <Group>
           {icon}
           <View style={{ paddingLeft: spacing.small }}>
-            <Text style={$selectorText} size="md">
+            <Text style={$selectorText} size='xs'>
               {tx}
             </Text>
-            <Text text={value} white ellipsizeMode="tail" numberOfLines={1} />
+            <Text text={value} size="xxs" white ellipsizeMode="tail" numberOfLines={1} />
           </View>
         </Group>
 

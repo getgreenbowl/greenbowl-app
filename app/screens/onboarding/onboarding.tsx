@@ -25,7 +25,7 @@ const possibleTags = [
   "fruits",
 ]
 
-const possibleTimes = ["Lunch", "Dinner", "Both"] as const;
+const possibleTimes = ["Lunch", "Dinner", "Both"] as const
 
 export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
   _props, // @demo remove-current-line
@@ -35,13 +35,16 @@ export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
   const { insertOrRemove, value } = useArray({
     value: [],
   })
-  const { insertOrRemove: insertTimes, value: times, remove } = useArray({
+  const {
+    insertOrRemove: insertTimes,
+    value: times,
+    remove,
+  } = useArray({
     value: [],
   })
   const {
     authenticationStore: { logout },
-  } = useStores();
-
+  } = useStores()
 
   function goNext() {
     navigation.navigate("main", { screen: "home" })
@@ -54,19 +57,16 @@ export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
 
   // const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"]);
 
-
-  const handleTimeSelection = (item) => {    
-      if(item === "Both") {
-        insertTimes(item);
-        remove('Lunch');
-        remove('Dinner');
-      }else {
-        insertTimes(item);
-        remove('Both')
-      }
+  const handleTimeSelection = (item) => {
+    if (item === "Both") {
+      insertTimes(item)
+      remove("Lunch")
+      remove("Dinner")
+    } else {
+      insertTimes(item)
+      remove("Both")
+    }
   }
-
- 
 
   return (
     <View style={$container}>
@@ -85,7 +85,7 @@ export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
                 tag={item}
                 key={item}
                 style={{
-                  marginVertical: spacing.tiny
+                  marginVertical: spacing.tiny,
                 }}
                 onPress={() => insertOrRemove(item)}
                 selected={value.includes(item)}
@@ -101,7 +101,7 @@ export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
               return (
                 <TagPill
                   size="large"
-                  style={{...$timesPill,...$mx}}
+                  style={{ ...$timesPill, ...$mx }}
                   onPress={() => handleTimeSelection(time)}
                   tag={time}
                   selected={times.includes(time)}
@@ -156,7 +156,7 @@ const $timesPill: ViewStyle = {
 }
 
 const $mx: ViewStyle = {
-  marginVertical: 1
+  marginVertical: 1,
 }
 
 const $group: ViewStyle = {

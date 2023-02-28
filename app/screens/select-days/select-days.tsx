@@ -1,7 +1,7 @@
 import React from "react"
-import { Pressable, View, ViewStyle } from "react-native"
+import { View, ViewStyle } from "react-native"
 import { Button, Icon, Screen, Text } from "../../components"
-import { Group } from "../../components/group.component"
+import { PressableGroup } from "../../components/pressables"
 import { AppStackScreenProps } from "../../navigators"
 import { spacing } from "../../theme"
 import { marginL } from "../../theme/utils"
@@ -13,15 +13,14 @@ interface SelectDaysProps extends AppStackScreenProps<"selectDays"> {}
 export const SelectDays = ({ navigation }: SelectDaysProps) => {
   return (
     <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$container}>
-      <Group>
-        <Pressable onPress={navigation.goBack}>
-          <Icon icon="back" size={22} />
-        </Pressable>
-        <Text style={marginL.small} preset="subheading" mute>
-          Select delivery timing
+        <PressableGroup pressProps={{
+            onPress:navigation.goBack
+        }}>
+          <Icon icon="caretLeft" size={22} />
+          <Text style={marginL.tiny} preset="subheading" mute>
+          Select date and time
         </Text>
-      </Group>
-
+        </PressableGroup>
       <View style={$bottomContainer}>
         <View>
           <Days />

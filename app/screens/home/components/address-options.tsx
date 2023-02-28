@@ -25,7 +25,7 @@ export const AddressOptions = ({ cancel, select }: AddressOptionType) => {
   return (
     <ScrollView style={$container}>
       <Group content="space-between">
-        <Text weight="semiBold" size="lg" mute>
+        <Text weight="semiBold" size="md" mute>
           Choose delivery address
         </Text>
         <Pressable onPress={cancel}>
@@ -34,7 +34,7 @@ export const AddressOptions = ({ cancel, select }: AddressOptionType) => {
       </Group>
       <Group style={$spacing}>
         <Icon icon="plusCircle" color={colors.orangeBg} size={30} />
-        <Text weight="semiBold" style={[$spacingLeft, { color: colors.orangeBg }]} size="lg">
+        <Text weight="semiBold" style={[$spacingLeft, { color: colors.orangeBg }]} size="md">
           Add new address
         </Text>
       </Group>
@@ -45,11 +45,11 @@ export const AddressOptions = ({ cancel, select }: AddressOptionType) => {
               <Icon icon={add.type} size={30} />
               <View>
                 <Group content="space-between">
-                <Text weight="semiBold" style={$spacingLeft} size="lg">
+                <Text weight="semiBold" style={$spacingLeft} size="md">
                   {add.type}
                 </Text>
                 </Group>
-                <Text style={$spacingLeft} size="sm">
+                <Text style={$spacingLeft} size="xs">
                   {add.address}
                 </Text>
               </View>
@@ -62,7 +62,12 @@ export const AddressOptions = ({ cancel, select }: AddressOptionType) => {
 }
 
 const $container: ViewStyle = {
-  paddingHorizontal: spacing.small,
+  paddingHorizontal: spacing.medium,
+  backgroundColor: colors.palette.neutral1,
+  borderTopRightRadius: spacing.borderRadius,
+  borderTopLeftRadius: spacing.borderRadius,
+  paddingTop: spacing.large,
+  paddingBottom: spacing.massive
 }
 
 const $spacing: ViewStyle = {

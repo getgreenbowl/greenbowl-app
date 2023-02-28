@@ -2,7 +2,6 @@ import React, { useCallback, useState } from "react"
 import { TextStyle, ViewStyle } from "react-native"
 import Modal from "react-native-modal"
 import { Screen, Text } from "../../components"
-import { Spacer } from "../../components/spacer"
 import { AppStackScreenProps } from "../../navigators"
 import { colors, spacing } from "../../theme"
 import { AddressOptions } from "./components/address-options"
@@ -24,6 +23,10 @@ export const HomeScreen = (props: HomeProps) => {
     }
     if (action === "days") {
       props.navigation.push("selectDays")
+    }
+
+    if (action === "meal") {
+      props.navigation.push("mealList")
     }
   }, [])
 
@@ -50,17 +53,27 @@ export const HomeScreen = (props: HomeProps) => {
         <Text preset="heading" style={$title}>
           Hello, vishal
         </Text>
-        <Text style={$tagline}>A freindly reminder to stay hydrated and drink water.</Text>
-
+        <Text style={$tagline} size="xs">
+          A freindly reminder to stay hydrated and drink water.
+        </Text>
         <YourMeal />
-
-        <Spacer />
-
         <ScheduleYourMeal address={address.address} handleAction={handleAction} />
       </Screen>
 
       <Modal
         isVisible={showAddress}
+        style={$modalView}
+        backdropTransitionOutTiming={0}
+        onBackdropPress={() => setshowAddress(false)}
+        onBackButtonPress={() => setshowAddress(false)}
+        animationInTiming={100}
+        animationOutTiming={50}
+        animationIn="slideInUp"
+        animationOut="slideOutDown"
+        backdropTransitionInTiming={50}
+        useNativeDriverForBackdrop
+        hideModalContentWhileAnimating
+        useNativeDriver={true}
       >
         <AddressOptions select={selectAddress} cancel={closeSheet} />
       </Modal>
@@ -83,4 +96,11 @@ const $title: TextStyle = {
 const $tagline: TextStyle = {
   marginBottom: spacing.huge,
   color: colors.palette.neutral1,
+}
+
+const $modalView: ViewStyle = {
+  flex: 1,
+  alignItems: "flex-end",
+  flexDirection: "row",
+  margin: 0,
 }

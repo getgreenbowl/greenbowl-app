@@ -3,6 +3,7 @@ import { Pressable, View, ViewStyle } from "react-native"
 import { Card, Text, Box, Icon } from "../../../components"
 import { Group } from "../../../components/group.component"
 import { colors, spacing } from "../../../theme"
+import { marginT } from "../../../theme/utils"
 
 const userMeals = [
   {
@@ -20,13 +21,13 @@ const userMeals = [
 ] as const
 
 export const YourMeal = () => {
-  const [current, _setcurrent] = useState("Mon");
+  const [current, _setcurrent] = useState("Mon")
   return (
     <Card
       style={$cardContainer}
-      HeadingComponent={<Text size="lg" weight="semiBold" text="Your meals" />}
+      HeadingComponent={<Text size="md" weight="semiBold" text="Your meals" />}
       ContentComponent={
-        <View>
+        <View style={marginT.small} >
           <Group content="space-between">
             {["Mon", "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun"].map((day) => {
               return <Day value={day} key={day} current={current} />
@@ -44,8 +45,8 @@ export const YourMeal = () => {
 function Day({ value, current }) {
   const _value = value === current ? "Today" : value
   return (
-    <View >
-      <Text text={_value} />
+    <View>
+      <Text size="xs" text={_value} />
     </View>
   )
 }
@@ -59,16 +60,16 @@ function MealCard({ type, meta }) {
         ContentComponent={
           <View>
             <Box>
-              <Text preset="heading" white>
+              <Text size="xl" weight="bold" white>
                 {meta.time}
               </Text>
-              <Text preset="subheading" white>
+              <Text size="sm" white>
                 {meta.name}
               </Text>
               <Group>
-                <Icon icon="location" size={12} color={colors.palette.neutral1} />
-                <Text white mute>
-                  {meta.deliverAt}
+                {/* <Icon icon="location" size={12} color={colors.palette.neutral1} /> */}
+                <Text white mute size="xxs">
+                  Delivering at {meta.deliverAt}
                 </Text>
               </Group>
             </Box>
@@ -91,8 +92,6 @@ function MealCard({ type, meta }) {
     </View>
   )
 }
-
-
 
 const $cardContainer: ViewStyle = {
   padding: spacing.large,
