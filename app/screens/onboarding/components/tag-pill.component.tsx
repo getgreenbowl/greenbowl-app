@@ -14,19 +14,26 @@ export const TagPill = ({
   style?: ViewStyle
   tag: string
   selected: boolean
-  onPress: () => void
+  onPress?: () => void
 }) => {
     const $selected = selected ? $variations.selected : $variations.default;
   const $styles = [$pillStyle, $size[size], $selected, style];
 
-  const $textSize = size === 'large' ? 'sm' : 'xs'
+  const $textSize = textSize[size]
 
   return (
-    <Pressable style={$styles} onPress={onPress}>
+    <Pressable style={$styles} onPress={onPress}  disabled={!onPress} >
       <Text size={$textSize} >{tag}</Text>
     </Pressable>
   )
 }
+
+
+const textSize = {
+  small: 'xxs',
+  default: 'xs',
+  large: 'sm',
+} as const
 
 const $variations = {
   default: {
@@ -41,6 +48,10 @@ const $variations = {
 }
 
 const $size = {
+  small: {
+    paddingHorizontal: spacing.tiny,
+    paddingVertical: spacing.micro - 1,
+  } as ViewStyle,
   default: {
     paddingHorizontal: spacing.small,
     paddingVertical: spacing.micro,

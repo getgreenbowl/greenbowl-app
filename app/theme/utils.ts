@@ -36,15 +36,15 @@ const spacingGenerator = <T extends string>(
       },
   }
 }
-export const marginX = spacingGenerator("marginVertical");
+export const marginX = spacingGenerator("marginHorizontal");
 export const marginY = spacingGenerator("marginVertical");
 export const marginT = spacingGenerator("marginTop");
 export const marginB = spacingGenerator("marginBottom");
 export const margin = spacingGenerator("margin");
 export const marginL = spacingGenerator("marginLeft");
 export const marginR = spacingGenerator("marginRight");
-export const paddingX = spacingGenerator("paddingVertical");
-export const paddingY = spacingGenerator("paddingHorizontal");
+export const paddingY = spacingGenerator("paddingVertical");
+export const paddingX = spacingGenerator("paddingHorizontal");
 export const paddingL = spacingGenerator("paddingLeft");
 export const paddingR = spacingGenerator("paddingRight");
 export const padding = spacingGenerator("padding");

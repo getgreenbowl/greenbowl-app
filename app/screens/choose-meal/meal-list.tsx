@@ -1,10 +1,17 @@
 import React from "react"
-import { FlatList, View, ViewStyle } from "react-native"
+import { FlatList, View, ViewStyle, Image } from "react-native"
 import { Card, Icon, Screen, Text } from "../../components"
+import { Group } from "../../components/group.component"
 import { PressableGroup } from "../../components/pressables"
 import { AppStackScreenProps } from "../../navigators"
 import { spacing } from "../../theme"
 import { marginL, marginT, marginX, marginY } from "../../theme/utils"
+import { TagPill } from "../onboarding/components/tag-pill.component"
+const fp = require("../../../assets/images/food-plate.png")
+const fp2 = require("../../../assets/images/food-plate2.png")
+const fp3 = require("../../../assets/images/fp3.jpeg")
+const fp4 = require("../../../assets/images/fp4.webp")
+const fp5 = require("../../../assets/images/fp5.webp")
 
 interface MealListProps extends AppStackScreenProps<"mealList"> {}
 
@@ -46,7 +53,21 @@ export const MealList = ({ navigation }: MealListProps) => {
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => (
-            <Card style={marginX.tiny} HeadingComponent={<Text text={item.name} />} />
+            <Card
+              style={marginX.tiny}
+              ContentComponent={
+                <View style={$singleMealContainer}>
+                  <Image source={fp3} style={{ width: 125, height: 125 }} />
+                  <Group wrap>
+                    {["salad", 'low-calorie'].map((tag) => {
+                      return <TagPill size="small" key={tag} tag={tag} selected />
+                    })}
+                  </Group>
+
+                  <Text text={item.name} size="xs" weight="semiBold" style={marginT.small} />
+                </View>
+              }
+            />
           )}
         />
       </View>
@@ -60,7 +81,21 @@ export const MealList = ({ navigation }: MealListProps) => {
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => (
-            <Card style={marginX.tiny} HeadingComponent={<Text text={item.name} />} />
+            <Card
+            style={marginX.tiny}
+            ContentComponent={
+              <View style={$singleMealContainer}>
+                <Image source={fp5} style={{ width: 125, height: 125 }} />
+                <Group wrap>
+                  {["healthy", "gujarati"].map((tag) => {
+                    return <TagPill size="small" key={tag} tag={tag} selected />
+                  })}
+                </Group>
+
+                <Text text={item.name} size="xs" weight="semiBold" style={marginT.small} />
+              </View>
+            }
+          />
           )}
         />
       </View>
@@ -74,9 +109,23 @@ export const MealList = ({ navigation }: MealListProps) => {
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => (
-            <Card style={marginX.tiny} HeadingComponent={<Text text={item.name} />} />
-          )}
+            <Card
+            style={marginX.tiny}
+            ContentComponent={
+              <View style={$singleMealContainer}>
+                <Image source={fp} style={{ width: 125, height: 125 }} />
+                <Group wrap>
+                  {["healthy", "gujarati"].map((tag) => {
+                    return <TagPill size="small" key={tag} tag={tag} selected />
+                  })}
+                </Group>
+
+                <Text text={item.name} size="xs" weight="semiBold" style={marginT.small} />
+              </View>
+            }
           />
+          )}
+        />
       </View>
     </Screen>
   )
@@ -86,4 +135,9 @@ const $container: ViewStyle = {
   paddingVertical: spacing.large,
   paddingHorizontal: spacing.medium,
   minHeight: "100%",
+}
+
+const $singleMealContainer: ViewStyle = {
+  alignItems: "center",
+  justifyContent: "center",
 }
