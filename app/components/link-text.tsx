@@ -18,5 +18,5 @@ export const Link = ({onPress, children} : LinkProps) => {
 
 
 const $linkStyle: TextStyle = {
-    color: colors.palette.primary11
+    color: colors.purpleBg
 }; 

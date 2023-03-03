@@ -21,6 +21,7 @@ import {
   LoginScreen,
   RegisterScreen, // @demo remove-current-line
 } from "../screens"
+import { MealDetail } from "../screens/choose-meal/meal-detail"
 import { MealList } from "../screens/choose-meal/meal-list"
 import { Onboarding } from "../screens/onboarding/onboarding"
 import { SelectDays } from "../screens/select-days/select-days"
@@ -34,11 +35,6 @@ import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
  * If no params are allowed, pass through `undefined`. Generally speaking, we
  * recommend using your MobX-State-Tree store(s) to keep application state
  * rather than passing state through navigation params.
- *
- * For more information, see this documentation:
- *   https://reactnavigation.org/docs/params/
- *   https://reactnavigation.org/docs/typescript#type-checking-the-navigator
- *   https://reactnavigation.org/docs/typescript/#organizing-types
  */
 export type AppStackParamList = {
   Onboarding: undefined
@@ -47,6 +43,7 @@ export type AppStackParamList = {
   main: NavigatorScreenParams<MainTabParamList>
   selectDays: undefined
   mealList: undefined
+  mealDetail: undefined
 }
 
 /**
@@ -84,6 +81,7 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="main" component={MainNavigator} />
           <Stack.Screen name='selectDays' component={SelectDays} />
           <Stack.Screen name='mealList' component={MealList} />
+          <Stack.Screen name='mealDetail' component={MealDetail} />
         </>
       ) : (
         <>

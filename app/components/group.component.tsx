@@ -39,8 +39,12 @@ const $alignment = {
   left: {
     alignItems: "center",
   } as ViewStyle,
+  right: {
+    alignItems: "flex-end",
+  } as ViewStyle,
   around: {
     justifyContent: "space-around",
+    alignItems: 'center'
   } as ViewStyle,
 }
 
