@@ -3,7 +3,7 @@ import { View } from "react-native"
 import { Card, Text, Toggle } from "../../../components"
 import { Group } from "../../../components/group.component"
 import { useArray } from "../../../hooks/use-array"
-import {  marginY } from "../../../theme/utils"
+import {  marginT, marginY } from "../../../theme/utils"
 import { TagPill } from "../../onboarding/components/tag-pill.component"
 
 const daysValue = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
@@ -29,8 +29,25 @@ export const Days = () => {
         </Text>
       }
       ContentComponent={
-        <View>
-          <Group style={marginY.large} wrap>
+        <View style={marginY.large}>
+          <Text text="Lunch" weight='semiBold'  />
+          <Group style={marginY.tiny}  wrap>
+            {daysValue.map((day) => {
+              return (
+                <TagPill
+                  tag={day}
+                  size="default"
+                  onPress={() => days.insertOrRemove(day)}
+                  key={day}
+                  selected={days.value.includes(day)}
+                />
+              )
+            })}
+          </Group>
+            <Toggle value={true} label={`${daysInWords}`}  />
+
+            <Text text="Dinner" weight='semiBold'  style={marginT.medium} />
+          <Group style={marginY.tiny}  wrap>
             {daysValue.map((day) => {
               return (
                 <TagPill

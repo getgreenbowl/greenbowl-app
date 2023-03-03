@@ -23,7 +23,7 @@ export const TimeSelection = () => {
       ContentComponent={
         <View>
           <View style={marginT.medium}>
-            <Text text="Lunch time" />
+            <Text text="Lunch time" weight='semiBold'  />
             <Group style={marginT.tiny} wrap>
               {lunchTime.map((time) => {
                 return (
@@ -39,7 +39,7 @@ export const TimeSelection = () => {
             </Group>
           </View>
           <View style={marginT.medium}>
-            <Text text="Dinner time" />
+            <Text text="Dinner time" weight='semiBold'  />
             <Group  style={marginT.tiny} wrap>
               {dinnerTime.map((time) => {
                 return (

@@ -4,10 +4,10 @@ import { TextStyle, View, ViewStyle } from "react-native"
 import { Button, Text } from "../../components"
 import { Group } from "../../components/group.component"
 import { useArray } from "../../hooks/use-array"
-import { useStores } from "../../models" // @demo remove-current-line
-import { AppStackScreenProps } from "../../navigators" // @demo remove-current-line
+import { useStores } from "../../models"; // @demo remove-current-line
+import { AppStackScreenProps } from "../../navigators"; // @demo remove-current-line
 import { colors, spacing } from "../../theme"
-import { useHeader } from "../../utils/useHeader" // @demo remove-current-line
+import { useHeader } from "../../utils/useHeader"; // @demo remove-current-line
 import { TagPill } from "./components/tag-pill.component"
 
 interface OnboardingProps extends AppStackScreenProps<"Onboarding"> {} // @demo remove-current-line
@@ -25,8 +25,6 @@ const possibleTags = [
   "fruits",
 ]
 
-const possibleTimes = ["Lunch", "Dinner", "Both"] as const
-
 export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
   _props, // @demo remove-current-line
 ) {
@@ -35,13 +33,7 @@ export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
   const { insertOrRemove, value } = useArray({
     value: [],
   })
-  const {
-    insertOrRemove: insertTimes,
-    value: times,
-    remove,
-  } = useArray({
-    value: [],
-  })
+
   const {
     authenticationStore: { logout },
   } = useStores()
@@ -55,18 +47,6 @@ export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
   })
   // @demo remove-block-end
 
-  // const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"]);
-
-  const handleTimeSelection = (item) => {
-    if (item === "Both") {
-      insertTimes(item)
-      remove("Lunch")
-      remove("Dinner")
-    } else {
-      insertTimes(item)
-      remove("Both")
-    }
-  }
 
   return (
     <View style={$container}>
@@ -94,25 +74,8 @@ export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
           })}
         </Group>
 
-        <View>
-          <Text preset="subheading">I will have</Text>
-          <Group style={$group} content="space-between">
-            {possibleTimes.map((time) => {
-              return (
-                <TagPill
-                  size="large"
-                  style={{ ...$timesPill, ...$mx }}
-                  onPress={() => handleTimeSelection(time)}
-                  tag={time}
-                  selected={times.includes(time)}
-                  key={time}
-                />
-              )
-            })}
-          </Group>
 
           <Button testID="next-screen-button" preset="reversed" onPress={goNext} text="Let's go!" />
-        </View>
       </View>
     </View>
   )
@@ -149,17 +112,4 @@ const $bottomContainer: ViewStyle = {
 
 const $welcomeHeading: TextStyle = {
   marginBottom: spacing.medium,
-}
-
-const $timesPill: ViewStyle = {
-  flexBasis: "30%",
-}
-
-const $mx: ViewStyle = {
-  marginVertical: 1,
-}
-
-const $group: ViewStyle = {
-  marginBottom: spacing.medium,
-  marginTop: spacing.tiny,
 }

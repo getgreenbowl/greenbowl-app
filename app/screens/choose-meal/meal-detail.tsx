@@ -63,24 +63,24 @@ export const MealDetail = ({ navigation }) => {
 
       <View style={marginT.medium}>
         <Text preset="subheading">Description</Text>
-        <Text>
+        <Text size="xs" ellipsizeMode="tail" numberOfLines={3} >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius similique ab excepturi
           voluptatum illo quaerat, quo asperiores quam provident molestias.
         </Text>
       </View>
 
-      <View style={marginT.medium}>
+      <View style={marginT.large}>
         <Text preset="subheading">Ingredients</Text>
         <Group wrap>
           {["fortune oil", "potatoe", "onion", "garlic", "salt", "chillie", "wheat", "rice"].map(
             (item) => {
-              return <TagPill tag={item} selected />
+              return <TagPill tag={item} key={item}  selected />
             },
           )}
         </Group>
       </View>
       </View>
-        <Button text="Save" preset="reversed" onPress={navigation.goBack} />
+        <Button text="Add to your menu" preset="reversed" onPress={navigation.goBack} />
       </View>
 
     </Screen>
