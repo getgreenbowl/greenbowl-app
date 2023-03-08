@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Pressable, View, ViewStyle } from "react-native"
+import Animated, { FadeInDown } from "react-native-reanimated"
 import { Card, Text, Box, Icon } from "../../../components"
 import { Group } from "../../../components/group.component"
 import { colors, spacing } from "../../../theme"
@@ -27,7 +28,7 @@ export const YourMeal = () => {
       style={$cardContainer}
       HeadingComponent={<Text size="md" weight="semiBold" text="Your meals" />}
       ContentComponent={
-        <View style={marginT.small} >
+        <Animated.View style={marginT.small} entering={FadeInDown.duration(250).delay(5)} >
           <Group content="space-between">
             {["Mon", "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun"].map((day) => {
               return <Day value={day} key={day} current={current} />
@@ -36,7 +37,7 @@ export const YourMeal = () => {
           {userMeals.map((meal) => {
             return <MealCard type={meal.type} key={meal.name} meta={meal} />
           })}
-        </View>
+        </Animated.View>
       }
     />
   )

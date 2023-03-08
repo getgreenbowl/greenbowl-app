@@ -1,10 +1,9 @@
 import React from "react"
 import { View, ViewStyle } from "react-native"
-import { Button, Icon, Screen, Text } from "../../components"
-import { PressableGroup } from "../../components/pressables"
+import { Button, Screen } from "../../components"
+import { BackButton } from "../../components/back-button"
 import { AppStackScreenProps } from "../../navigators"
 import { spacing } from "../../theme"
-import { marginL } from "../../theme/utils"
 import { Days } from "./components/days"
 import { TimeSelection } from "./components/time"
 
@@ -13,14 +12,7 @@ interface SelectDaysProps extends AppStackScreenProps<"selectDays"> {}
 export const SelectDays = ({ navigation }: SelectDaysProps) => {
   return (
     <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$container}>
-        <PressableGroup pressProps={{
-            onPress:navigation.goBack
-        }}>
-          <Icon icon="caretLeft" size={22} />
-          <Text style={marginL.tiny} preset="subheading" mute>
-          Select date and time
-        </Text>
-        </PressableGroup>
+        <BackButton func={navigation.goBack} />
       <View style={$bottomContainer}>
         <View>
           <Days />

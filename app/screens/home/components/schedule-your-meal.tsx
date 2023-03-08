@@ -2,9 +2,14 @@ import React from "react"
 import { ViewStyle, TextStyle, View, Pressable } from "react-native"
 import { Card, Icon, Text } from "../../../components"
 import { Group } from "../../../components/group.component"
+import { appStore } from "../../../store/app-state.store"
+import mealStore from "../../../store/meal-selection.store"
 import { colors, spacing } from "../../../theme"
 
 export const ScheduleYourMeal = ({ handleAction, address }) => {
+  const totalMeals = mealStore((state) => state.totalMeals());
+  const toggleMeals = appStore((state) => state.toggleActive);
+
   return (
     <Card
       style={$cardContainer}
@@ -15,27 +20,27 @@ export const ScheduleYourMeal = ({ handleAction, address }) => {
       }
       ContentComponent={
         <View>
-         
-          <Pressable onPress={() => handleAction('meal')}>
+          <Pressable onPress={() => handleAction("meal")}>
             <SingleSelector
               tx="Choose your meals"
+              value={`${totalMeals} meals selected`}
               icon={<Icon icon="mealFastFood" size={22} color={colors.palette.neutral1} />}
             />
           </Pressable>
-          <Pressable onPress={() => handleAction('days')}>
+          <Pressable onPress={() => handleAction("days")}>
             <SingleSelector
               tx="Select days"
               icon={<Icon icon="calendar" size={22} color={colors.palette.neutral1} />}
             />
           </Pressable>
-          <Pressable onPress={() => handleAction('address')}>
+          <Pressable onPress={() => handleAction("address")}>
             <SingleSelector
               tx="Select Address"
               value={address}
               icon={<Icon icon="location" size={22} color={colors.palette.neutral1} />}
             />
           </Pressable>
-          <Pressable onPress={() => handleAction('address')}>
+          <Pressable onPress={() => toggleMeals()}>
             <SingleSelector
               tx="Confirm and Pay"
               value={address}
@@ -63,7 +68,7 @@ function SingleSelector({
         <Group>
           {icon}
           <View style={{ paddingLeft: spacing.small }}>
-            <Text style={$selectorText} size='xs'>
+            <Text style={$selectorText} size="xs">
               {tx}
             </Text>
             <Text text={value} size="xxs" white ellipsizeMode="tail" numberOfLines={1} />

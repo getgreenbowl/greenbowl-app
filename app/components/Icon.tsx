@@ -115,7 +115,10 @@ export const iconRegistry = {
   home: require("../../assets/icons/home.png"),
   work: require("../../assets/icons/briefcase.png"),
   edit: require("../../assets/icons/edit.png"),
-  analytics: require("../../assets/icons/analytics.png")
+  analytics: require("../../assets/icons/analytics.png"),
+  star: require("../../assets/icons/star.png"),
+  add: require("../../assets/icons/add.png"),
+  delete: require("../../assets/icons/delete.png")
 }
 
 const $imageStyle: ImageStyle = {

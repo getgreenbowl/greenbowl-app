@@ -9,7 +9,6 @@ import { HomeScreen } from "../screens/home/home.screen"
 import { colors, spacing, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./app.navigator"
 
-
 export type MainTabParamList = {
   home: undefined
   analytics: undefined
@@ -31,8 +30,8 @@ export function MainNavigator() {
         headerShown: false,
         tabBarHideOnKeyboard: true,
         tabBarStyle: [$tabBar, { height: bottom + 70 }],
-        tabBarActiveTintColor: colors.text,
-        tabBarInactiveTintColor: colors.text,
+        tabBarActiveTintColor: colors.palette.neutral1,
+        tabBarInactiveTintColor: colors.palette.neutral1,
         tabBarLabelStyle: $tabBarLabel,
         tabBarItemStyle: $tabBarItem,
       }}
@@ -42,7 +41,9 @@ export function MainNavigator() {
         component={HomeScreen}
         options={{
           tabBarLabel: "Home",
-          tabBarIcon: ({ focused }) => <Icon icon="home"  color={focused && colors.purpleBg} />,
+          tabBarIcon: ({ focused }) => (
+            <Icon icon="home" color={focused ? colors.palette.neutral1 : colors.palette.neutral9} />
+          ),
         }}
       />
 
@@ -51,7 +52,9 @@ export function MainNavigator() {
         component={Analytics}
         options={{
           tabBarLabel: "Analytics",
-          tabBarIcon: ({ focused }) => <Icon icon='analytics'   color={focused && colors.purpleBg} />,
+          tabBarIcon: ({ focused }) => (
+            <Icon icon="analytics" color={focused ? colors.palette.neutral1 : colors.palette.neutral9} />
+          ),
         }}
       />
     </Tab.Navigator>
@@ -59,8 +62,8 @@ export function MainNavigator() {
 }
 
 const $tabBar: ViewStyle = {
-  backgroundColor: colors.background,
-  borderTopColor: colors.transparent
+  backgroundColor: colors.lightBg,
+  borderTopColor: colors.transparent,
 }
 
 const $tabBarItem: ViewStyle = {

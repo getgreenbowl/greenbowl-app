@@ -1,10 +1,10 @@
 import React from "react"
 import { Image, View, ViewStyle } from "react-native"
-import { Button, Icon, Screen, Text } from "../../components"
+import { Button, Screen, Text } from "../../components"
+import { BackButton } from "../../components/back-button"
 import { Group } from "../../components/group.component"
-import { PressableGroup } from "../../components/pressables"
 import { spacing } from "../../theme"
-import { margin, marginB, marginT, marginX, marginY } from "../../theme/utils"
+import { margin, marginT } from "../../theme/utils"
 import { TagPill } from "../onboarding/components/tag-pill.component"
 
 const fp = require("../../../assets/images/food-plate.png")
@@ -14,13 +14,7 @@ export const MealDetail = ({ navigation }) => {
     <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$container}>
       <View style={$semiContainer} >
       <View>
-      <PressableGroup
-        pressProps={{
-          onPress: navigation.goBack,
-        }}
-      >
-        <Icon icon="caretLeft" size={22} />
-      </PressableGroup>
+      <BackButton func={navigation.goBack} />
       <Group content="center">
         <Text size="lg" weight="semiBold">
           Creamy macroni pasta salad

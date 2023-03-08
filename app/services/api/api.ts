@@ -5,16 +5,15 @@
  * See the [Backend API Integration](https://github.com/infinitered/ignite/blob/master/docs/Backend-API-Integration.md)
  * documentation for more details.
  */
-import {
-  ApiResponse, // @demo remove-current-line
-  ApisauceInstance,
-  create,
-} from "apisauce"
+// import {
+//   ApiResponse, // @demo remove-current-line
+//   ApisauceInstance,
+//   create,
+// } from "apisauce"
 import Config from "../../config"
 import { GeneralApiProblem, getGeneralApiProblem } from "./apiProblem" // @demo remove-current-line
 import type {
   ApiConfig,
-  ApiFeedResponse, // @demo remove-current-line
 } from "./api.types"
 import type { EpisodeSnapshotIn } from "../../models/Episode" // @demo remove-current-line
 
@@ -31,7 +30,7 @@ export const DEFAULT_API_CONFIG: ApiConfig = {
  * various requests that you need to call from your backend API.
  */
 export class Api {
-  apisauce: ApisauceInstance
+  apisauce: any
   config: ApiConfig
 
   /**
@@ -39,13 +38,7 @@ export class Api {
    */
   constructor(config: ApiConfig = DEFAULT_API_CONFIG) {
     this.config = config
-    this.apisauce = create({
-      baseURL: this.config.url,
-      timeout: this.config.timeout,
-      headers: {
-        Accept: "application/json",
-      },
-    })
+    this.apisauce = null
   }
 
   // @demo remove-block-start
@@ -54,7 +47,7 @@ export class Api {
    */
   async getEpisodes(): Promise<{ kind: "ok"; episodes: EpisodeSnapshotIn[] } | GeneralApiProblem> {
     // make the api call
-    const response: ApiResponse<ApiFeedResponse> = await this.apisauce.get(
+    const response: any = await this.apisauce.get(
       `api.json?rss_url=https%3A%2F%2Ffeeds.simplecast.com%2FhEI_f9Dx`,
     )
 

@@ -91,6 +91,7 @@ export const colors = {
    */
   errorBackground: palette.angry100,
   purpleBg: '#3f4381',
+  lightBg: '#5d628f',
   orangeBg: '#e46c47',
   redBg: '#ea595e',
   darkRedBg: '#e2374f',
