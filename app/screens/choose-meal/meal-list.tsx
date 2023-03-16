@@ -1,3 +1,4 @@
+import { StatusBar } from "expo-status-bar"
 import React from "react"
 import { FlatList, Image, ImageStyle, Pressable, View, ViewStyle } from "react-native"
 import { Button, Card, Icon, Text } from "../../components"
@@ -54,12 +55,12 @@ export const MealList = ({ navigation }: MealListProps) => {
   const meals = mealStore((state) => state.meals)
 
   return (
-    <FlatList
+    <>
+      <FlatList
       data={MealData}
       style={$flatListMargin}
       keyExtractor={(item) => item.name}
-      // numColumns={2}
-      ListHeaderComponent={<BackButton func={navigation.goBack} style={marginL.small} />}
+      ListHeaderComponent={<BackButton onPress={navigation.goBack} style={marginL.small} />}
       renderItem={({ item }) => (
         <MealCard
           item={item}
@@ -69,6 +70,8 @@ export const MealList = ({ navigation }: MealListProps) => {
         />
       )}
     />
+    </>
+   
   )
 }
 
@@ -81,7 +84,9 @@ const MealCard = ({ item, navigation, addMeal, added }) => {
   }
 
   return (
-    <Pressable onPress={() => navigation.push("mealDetail")} style={$mealCard}>
+    <Pressable onPress={() => navigation.navigate("mealDetail", {
+        name: item.name
+    })} style={$mealCard}>
       <Card
         style={{ borderRadius: spacing.borderRadius + 10 }}
         ContentComponent={
@@ -122,7 +127,7 @@ const $singleMealContainer: ViewStyle = {
 }
 
 const $flatListMargin: ViewStyle = {
-  marginTop: spacing.large + 5,
+  marginTop: spacing.large + 10,
   backgroundColor: colors.palette.neutral4
 }
 

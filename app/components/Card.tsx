@@ -139,7 +139,7 @@ export function Card(props: CardProps) {
     FooterTextProps?.style,
   ]
   const $alignmentWrapperStyle = [
-    $alignmentWrapper,
+     $alignmentWrapper,
     { justifyContent: $alignmentWrapperFlexOptions[verticalAlignment] },
     LeftComponent && { marginStart: spacing.medium },
     RightComponent && { marginEnd: spacing.medium },

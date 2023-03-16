@@ -7,6 +7,7 @@ import { Link } from "../../components/link-text"
 import { useStores } from "../../models"
 import { AppStackScreenProps } from "../../navigators"
 import { colors, spacing } from "../../theme"
+import { GLOBAL_CONSTANTS } from "../../utils/global-constants"
 
 interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
 
@@ -24,13 +25,6 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
       validationErrors,
     },
   } = useStores()
-
-  useEffect(() => {
-    // Here is where you could fetch credentials from keychain or storage
-    // and pre-fill the form fields.
-    setAuthEmail("ignite@infinite.red")
-    setAuthPassword("ign1teIsAwes0m3")
-  }, [])
 
   const errors: typeof validationErrors = isSubmitted ? validationErrors : ({} as any)
 
@@ -78,27 +72,23 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
       contentContainerStyle={$screenContentContainer}
       safeAreaEdges={["top", "bottom"]}
     >
-      <Text testID="login-heading" text="Tastebox" preset="heading" style={$signIn} />
+      <Text
+        testID="login-heading"
+        text={GLOBAL_CONSTANTS.brandName}
+        preset="heading"
+        style={$signIn}
+      />
       <Text
         preset="subheading"
         text="Log in to your account using your mobile no."
         style={$enterDetails}
       />
-      {attemptsCount > 2 && (
-        <Text
-          text="Hint: you can use any email address and your favorite password :)"
-          size="sm"
-          weight="light"
-          style={$hint}
-        />
-      )}
-
-<TextField
-      containerStyle={$textField}
-      keyboardType="numeric"
-      label="Mobile No."
-      placeholder="enter your mobile number"
-    />
+      <TextField
+        containerStyle={$textField}
+        keyboardType="numeric"
+        label="Mobile No."
+        placeholder="enter your mobile number"
+      />
 
       <TextField
         ref={authPasswordInput}
@@ -110,6 +100,7 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
         autoCorrect={false}
         secureTextEntry={isAuthPasswordHidden}
         label="Password"
+        placeholder="enter your password"
         helper={errors?.authPassword}
         status={errors?.authPassword ? "error" : undefined}
         onSubmitEditing={login}
@@ -150,11 +141,6 @@ const $signIn: TextStyle = {
 
 const $enterDetails: TextStyle = {
   marginBottom: spacing.huge,
-}
-
-const $hint: TextStyle = {
-  color: colors.tint,
-  marginBottom: spacing.medium,
 }
 
 const $textField: ViewStyle = {

@@ -2,29 +2,20 @@ import React from "react"
 import { View } from "react-native"
 import { Card, Text, Toggle } from "../../../components"
 import { Group } from "../../../components/group.component"
-import { useArray } from "../../../hooks/use-array"
+import mealStore from "../../../store/meal-selection.store"
 import { marginT, marginY } from "../../../theme/utils"
 import { TagPill } from "../../onboarding/components/tag-pill.component"
 
 const daysValue = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
 
 export const Days = () => {
-  const daysLunch = useArray({ value: [] })
-  const daysDinner = useArray({ value: [] })
+  const addLunchDay = mealStore(state => state.addLunchDay);
+  const addDinnerDay = mealStore(state => state.addDinnerDay);
+  const lunchDays = mealStore(state => state.days.lunch);
+  const dinnerDays = mealStore(state => state.days.dinner);
+  const lunchDaysInWords = mealStore(state => state.lunchDaysInWords);
+  const DinnerDaysInWords = mealStore(state => state.dinnerDaysInWords);
 
-  const daysLunchInWords = React.useMemo(() => {
-    if (daysLunch.value.length === daysValue.length) {
-      return "Repeat everyday"
-    }
-    return `Repeat on ${daysLunch.value.join(", ").toLowerCase()}`
-  }, [daysLunch.value])
-
-  const daysDinnerInwords = React.useMemo(() => {
-    if (daysDinner.value.length === daysValue.length) {
-      return "Repeat everyday"
-    }
-    return `Repeat on ${daysDinner.value.join(", ").toLowerCase()}`
-  }, [daysDinner.value])
 
   return (
     <Card
@@ -36,37 +27,37 @@ export const Days = () => {
       }
       ContentComponent={
         <View style={marginY.large}>
-          <Text text="Lunch" weight="semiBold" />
+          <Text text="First meal" weight="semiBold" />
           <Group style={marginY.tiny} wrap>
             {daysValue.map((day) => {
               return (
                 <TagPill
                   tag={day}
                   size="default"
-                  onPress={() => daysLunch.insertOrRemove(day)}
+                  onPress={() => addLunchDay(day)}
                   key={day}
-                  selected={daysLunch.value.includes(day)}
+                  selected={lunchDays.includes(day)}
                 />
               )
             })}
           </Group>
-          <Toggle value={true} label={`${daysLunchInWords}`} />
+          <Toggle value={true} label={`${lunchDaysInWords()}`} />
 
-          <Text text="Dinner" weight="semiBold" style={marginT.medium} />
+          <Text text="Second meal" weight="semiBold" style={marginT.medium} />
           <Group style={marginY.tiny} wrap>
             {daysValue.map((day) => {
               return (
                 <TagPill
                   tag={day}
                   size="default"
-                  onPress={() => daysDinner.insertOrRemove(day)}
+                  onPress={() => addDinnerDay(day)}
                   key={day}
-                  selected={daysDinner.value.includes(day)}
+                  selected={dinnerDays.includes(day)}
                 />
               )
             })}
           </Group>
-          <Toggle value={true} label={`${daysDinnerInwords}`} />
+          <Toggle value={true} label={`${DinnerDaysInWords()}`} />
         </View>
       }
     />

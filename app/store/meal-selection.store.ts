@@ -7,8 +7,8 @@ interface MealStore {
     dinner: string[]
   }
   timing: {
-    lunch: string[]
-    dinner: string[]
+    lunch: string
+    dinner: string
   }
   addMeal: (mealID: string) => void
   addLunchDay: (lunchDay: string) => void
@@ -16,6 +16,10 @@ interface MealStore {
   addLunchTiming: (lunchTime: string) => void
   addDinnerTiming: (dinnerTime: string) => void
   totalMeals: () => number
+  lunchDaysInWords: () => string,
+  dinnerDaysInWords: () => string,
+  dinnerMessage: () => string,
+  lunchMessage: () => string,
 }
 
 const mealStore = create<MealStore>((set, get) => ({
@@ -25,10 +29,18 @@ const mealStore = create<MealStore>((set, get) => ({
     dinner: [],
   },
   timing: {
-    lunch: [],
-    dinner: [],
+    lunch: '',
+    dinner: '',
   },
   totalMeals:() => get().meals.length,
+  lunchDaysInWords: () => get().days.lunch.toString(),
+  dinnerDaysInWords: () => get().days.dinner.toString(),
+  dinnerMessage: () => {    
+    return `${get().days.dinner.length} days dinner at ${get().timing.dinner}`
+  },
+  lunchMessage: () => {
+    return `${get().days.lunch.length} days lunch at ${get().timing.lunch}`
+  },
   addMeal: (mealID: string) =>
     set((state) => {
       const meals = [...state.meals]
@@ -53,12 +65,12 @@ const mealStore = create<MealStore>((set, get) => ({
   addLunchTiming: (lunchTime: string) =>
     set((state) => ({
       ...state,
-      timing: { ...state.timing, lunch: [...state.timing.lunch, lunchTime] },
+      timing: { ...state.timing, lunch: lunchTime },
     })),
   addDinnerTiming: (dinnerTime: string) =>
     set((state) => ({
       ...state,
-      timing: { ...state.timing, dinner: [...state.timing.dinner, dinnerTime] },
+      timing: { ...state.timing, dinner: dinnerTime },
     })),
 }))
 

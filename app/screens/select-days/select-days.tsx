@@ -12,7 +12,7 @@ interface SelectDaysProps extends AppStackScreenProps<"selectDays"> {}
 export const SelectDays = ({ navigation }: SelectDaysProps) => {
   return (
     <Screen preset="scroll" safeAreaEdges={["top"]} contentContainerStyle={$container}>
-        <BackButton func={navigation.goBack} />
+        <BackButton onPress={navigation.goBack} />
       <View style={$bottomContainer}>
         <View>
           <Days />

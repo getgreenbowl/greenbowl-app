@@ -7,7 +7,9 @@ import mealStore from "../../../store/meal-selection.store"
 import { colors, spacing } from "../../../theme"
 
 export const ScheduleYourMeal = ({ handleAction, address }) => {
-  const totalMeals = mealStore((state) => state.totalMeals());
+  const totalMeals = mealStore((state) => state.totalMeals);
+  const dinnerMessage = mealStore((state) => state.dinnerMessage);
+  const lunchMessage = mealStore((state) => state.lunchMessage);
   const toggleMeals = appStore((state) => state.toggleActive);
 
   return (
@@ -23,13 +25,14 @@ export const ScheduleYourMeal = ({ handleAction, address }) => {
           <Pressable onPress={() => handleAction("meal")}>
             <SingleSelector
               tx="Choose your meals"
-              value={`${totalMeals} meals selected`}
+              value={totalMeals()  ? `${totalMeals()} meals selected` : ''}
               icon={<Icon icon="mealFastFood" size={22} color={colors.palette.neutral1} />}
             />
           </Pressable>
           <Pressable onPress={() => handleAction("days")}>
             <SingleSelector
               tx="Select days"
+              value={`${lunchMessage()}, ${dinnerMessage()}`}
               icon={<Icon icon="calendar" size={22} color={colors.palette.neutral1} />}
             />
           </Pressable>

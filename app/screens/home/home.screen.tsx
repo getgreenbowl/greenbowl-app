@@ -49,25 +49,25 @@ export const HomeScreen = (props: HomeProps) => {
         preset="scroll"
         StatusBarProps={{
           backgroundColor: colors.purpleBg,
-          style: "light",
+          // style: "light",
         }}
         safeAreaEdges={["top"]}
         contentContainerStyle={$container}
       >
-        <Text preset="heading" style={$title} onPress={toggleActive} >
-          Hello, vishal
+        <Text preset="heading" style={$title} onPress={toggleActive}>
+          Hi, vishal
         </Text>
-        <Text style={$tagline} size="xs">
-          A freindly reminder to stay hydrated and drink water.
+        <Text style={$tagline} size="sm">
+          Healthy food for busy people.
         </Text>
 
         {activeCard === "your-meals" ? (
           <Animated.View entering={FadeInDown.duration(200)}>
-          <YourMeal />
+            <YourMeal />
           </Animated.View>
         ) : (
           <Animated.View entering={FadeInDown.duration(200)}>
-          <ScheduleYourMeal address={address.address} handleAction={handleAction} />
+            <ScheduleYourMeal address={address.address} handleAction={handleAction} />
           </Animated.View>
         )}
       </Screen>
@@ -108,6 +108,7 @@ const $title: TextStyle = {
 const $tagline: TextStyle = {
   marginBottom: spacing.huge,
   color: colors.palette.neutral1,
+  letterSpacing: 1
 }
 
 const $modalView: ViewStyle = {

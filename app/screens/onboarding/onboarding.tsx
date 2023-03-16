@@ -4,10 +4,10 @@ import { TextStyle, View, ViewStyle } from "react-native"
 import { Button, Text } from "../../components"
 import { Group } from "../../components/group.component"
 import { useArray } from "../../hooks/use-array"
-import { useStores } from "../../models"; // @demo remove-current-line
-import { AppStackScreenProps } from "../../navigators"; // @demo remove-current-line
+import { useStores } from "../../models" // @demo remove-current-line
+import { AppStackScreenProps } from "../../navigators" // @demo remove-current-line
 import { colors, spacing } from "../../theme"
-import { useHeader } from "../../utils/useHeader"; // @demo remove-current-line
+import { useHeader } from "../../utils/useHeader" // @demo remove-current-line
 import { TagPill } from "./components/tag-pill.component"
 
 interface OnboardingProps extends AppStackScreenProps<"Onboarding"> {} // @demo remove-current-line
@@ -47,7 +47,6 @@ export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
   })
   // @demo remove-block-end
 
-
   return (
     <View style={$container}>
       <View style={$topContainer}>
@@ -74,8 +73,7 @@ export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
           })}
         </Group>
 
-
-          <Button testID="next-screen-button" preset="reversed" onPress={goNext} text="Let's go!" />
+        <Button testID="next-screen-button" preset="reversed" onPress={goNext} text="Let's go!" />
       </View>
     </View>
   )
