@@ -120,6 +120,7 @@ export const iconRegistry = {
   delete: require("../../assets/icons/delete.png"),
   swap: require("../../assets/icons/swap.png"),
   skip: require("../../assets/icons/skip.png"),
+  leaf: require("../../assets/icons/leaf.png"),
 }
 
 const $imageStyle: ImageStyle = {

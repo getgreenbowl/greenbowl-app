@@ -7,7 +7,7 @@ import { Group } from "../../components/group.component"
 import { AppStackScreenProps } from "../../navigators"
 import mealStore from "../../store/meal-selection.store"
 import { colors, spacing } from "../../theme"
-import { marginL, marginT } from "../../theme/utils"
+import { marginL, marginR, marginT } from "../../theme/utils"
 import { TagPill } from "../onboarding/components/tag-pill.component"
 const fp = require("../../../assets/images/food-plate.png")
 const fp3 = require("../../../assets/images/fp3.jpeg")
@@ -56,39 +56,44 @@ export const MealList = ({ navigation }: MealListProps) => {
 
   return (
     <>
+      <StatusBar style={"dark"} />
       <FlatList
-      data={MealData}
-      style={$flatListMargin}
-      keyExtractor={(item) => item.name}
-      ListHeaderComponent={<BackButton onPress={navigation.goBack} style={marginL.small} />}
-      renderItem={({ item }) => (
-        <MealCard
-          item={item}
-          navigation={navigation}
-          addMeal={addMeal}
-          added={meals.includes(item.name)}
-        />
-      )}
-    />
+        data={MealData}
+        style={$flatListMargin}
+        keyExtractor={(item) => item.name}
+        ListHeaderComponent={<BackButton onPress={navigation.goBack} style={marginL.small} />}
+        renderItem={({ item }) => (
+          <MealCard
+            item={item}
+            navigation={navigation}
+            addMeal={addMeal}
+            added={meals.includes(item.name)}
+          />
+        )}
+      />
     </>
-   
   )
 }
 
 const MealCard = ({ item, navigation, addMeal, added }) => {
   const leftAccessory = () => {
     if (added) {
-      return <Icon icon='delete' size={20} />
+      return <Icon icon="delete" size={15} style={marginR.tiny} color={colors.palette.angry500} />
     }
-    return <Icon icon="add" size={20} />
+    return <Icon icon="add" size={15} style={marginR.tiny} />
   }
 
   return (
-    <Pressable onPress={() => navigation.navigate("mealDetail", {
-        name: item.name
-    })} style={$mealCard}>
+    <Pressable
+      onPress={() =>
+        navigation.navigate("mealDetail", {
+          name: item.name,
+        })
+      }
+      style={$mealCard}
+    >
       <Card
-        style={{ borderRadius: spacing.borderRadius + 10 }}
+        style={{ borderRadius: spacing.borderRadius }}
         ContentComponent={
           <Group style={$singleMealContainer}>
             <View>
@@ -110,7 +115,7 @@ const MealCard = ({ item, navigation, addMeal, added }) => {
               <Button
                 style={$buttonAdd}
                 onPress={() => addMeal(item.name)}
-                text={added ? 'Remove': 'Add'}
+                text={added ? "Remove" : "Add"}
                 LeftAccessory={leftAccessory}
               />
             </View>
@@ -127,8 +132,8 @@ const $singleMealContainer: ViewStyle = {
 }
 
 const $flatListMargin: ViewStyle = {
-  marginTop: spacing.large + 10,
-  backgroundColor: colors.palette.neutral4
+  marginTop: spacing.large + 5,
+  // backgroundColor: colors.palette.neutral4
 }
 
 const $mealCard: ViewStyle = {
@@ -136,7 +141,7 @@ const $mealCard: ViewStyle = {
   margin: spacing.small,
   alignItems: "center",
   justifyContent: "center",
-  borderRadius: spacing.borderRadius
+  borderRadius: spacing.borderRadius,
 }
 
 const $buttonAdd: ViewStyle = {
@@ -151,7 +156,7 @@ const $imageContainer: ViewStyle = {
   position: "relative",
   borderWidth: 1,
   borderColor: colors.palette.neutral5,
-  borderRadius: spacing.borderRadius
+  borderRadius: spacing.borderRadius,
 }
 
 const $imageSize: ImageStyle = {

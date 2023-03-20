@@ -49,7 +49,7 @@ export const HomeScreen = (props: HomeProps) => {
         preset="scroll"
         StatusBarProps={{
           backgroundColor: colors.purpleBg,
-          // style: "light",
+          style: "light",
         }}
         safeAreaEdges={["top"]}
         contentContainerStyle={$container}
@@ -108,7 +108,7 @@ const $title: TextStyle = {
 const $tagline: TextStyle = {
   marginBottom: spacing.huge,
   color: colors.palette.neutral1,
-  letterSpacing: 1
+  letterSpacing: 1,
 }
 
 const $modalView: ViewStyle = {
