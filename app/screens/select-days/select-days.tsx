@@ -16,7 +16,7 @@ export const SelectDays = ({ navigation }: SelectDaysProps) => {
       <View style={$bottomContainer}>
         <View>
           <Days />
-          <TimeSelection />
+          {/* <TimeSelection /> */}
         </View>
         <Button text="Save" preset="reversed" onPress={navigation.goBack} />
       </View>

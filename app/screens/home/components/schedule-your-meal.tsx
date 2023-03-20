@@ -32,7 +32,6 @@ export const ScheduleYourMeal = ({ handleAction, address }) => {
           <Pressable onPress={() => handleAction("days")}>
             <SingleSelector
               tx="Select days"
-              value={`${lunchMessage()}, ${dinnerMessage()}`}
               icon={<Icon icon="calendar" size={22} color={colors.palette.neutral1} />}
             />
           </Pressable>

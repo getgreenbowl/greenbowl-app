@@ -7,6 +7,7 @@ import { useArray } from "../../hooks/use-array"
 import { useStores } from "../../models" // @demo remove-current-line
 import { AppStackScreenProps } from "../../navigators" // @demo remove-current-line
 import { colors, spacing } from "../../theme"
+import { marginY } from "../../theme/utils"
 import { useHeader } from "../../utils/useHeader" // @demo remove-current-line
 import { TagPill } from "./components/tag-pill.component"
 
@@ -51,38 +52,22 @@ export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
     <View style={$container}>
       <View style={$topContainer}>
         <Text testID="welcome-heading" style={$welcomeHeading} preset="heading">
-          Select your preferences.
+          Welcome to greenbowl
         </Text>
-        <Text preset="subheading">let us know your taste.</Text>
+        <Text preset="subheading">Tell us your goals.</Text>
       </View>
 
       <View style={$bottomContainer}>
-        <Group style={$pillContainer} wrap>
-          {possibleTags.map((item) => {
-            return (
-              <TagPill
-                tag={item}
-                key={item}
-                style={{
-                  marginVertical: spacing.tiny,
-                }}
-                onPress={() => insertOrRemove(item)}
-                selected={value.includes(item)}
-              />
-            )
-          })}
-        </Group>
+        <View>
+          <Button onPress={goNext} text="I want to loose weight" style={marginY.small}  />
+          <Button onPress={goNext} text="I want to gain weight" style={marginY.small}  />
+          <Button onPress={goNext} text="I want to stay fit" style={marginY.small}  />
+        </View>
 
-        <Button testID="next-screen-button" preset="reversed" onPress={goNext} text="Let's go!" />
       </View>
     </View>
   )
 })
-
-const $pillContainer: ViewStyle = {
-  flexDirection: "row",
-  flexWrap: "wrap",
-}
 
 const $container: ViewStyle = {
   flex: 1,
@@ -93,6 +78,7 @@ const $topContainer: ViewStyle = {
   flexShrink: 1,
   flexGrow: 0,
   justifyContent: "center",
+  alignItems: 'center',
   paddingHorizontal: spacing.large,
   paddingVertical: spacing.small,
 }

@@ -107,7 +107,6 @@ export const iconRegistry = {
   slack: require("../../assets/icons/slack.png"),
   view: require("../../assets/icons/view.png"),
   x: require("../../assets/icons/x.png"),
-
   location: require("../../assets/icons/location.png"),
   calendar: require("../../assets/icons/calendar.png"),
   mealFastFood: require("../../assets/icons/meal-fast-food.png"),
@@ -118,7 +117,9 @@ export const iconRegistry = {
   analytics: require("../../assets/icons/analytics.png"),
   star: require("../../assets/icons/star.png"),
   add: require("../../assets/icons/add.png"),
-  delete: require("../../assets/icons/delete.png")
+  delete: require("../../assets/icons/delete.png"),
+  swap: require("../../assets/icons/swap.png"),
+  skip: require("../../assets/icons/skip.png"),
 }
 
 const $imageStyle: ImageStyle = {
