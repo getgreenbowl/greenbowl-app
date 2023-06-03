@@ -60,7 +60,10 @@ export const RegisterScreen = (props: RegisterScreenProps) => {
 
   const onPressRegister = () => {
       try {
-        validationSchema.parse({ name, mobile, password, confirmPassword });
+        let valid = validationSchema.parse({ name, mobile, password, confirmPassword });
+        if (valid) {
+         props.navigation.goBack() 
+        }
       } catch (error) {
         setErrors(error.formErrors.fieldErrors);
       }
