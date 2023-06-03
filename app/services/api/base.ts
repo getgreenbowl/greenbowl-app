@@ -6,7 +6,7 @@ import { loadString } from "../../utils/storage"
 
 export class Api {
    static baseApi =  ky.create({
-        prefixUrl: "http://localhost:3002",
+        prefixUrl: "http://192.168.29.193:3000",
         hooks: {
           beforeRequest: [
             async (request) => {

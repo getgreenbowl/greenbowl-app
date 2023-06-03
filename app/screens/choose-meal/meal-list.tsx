@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { FlatList, Image, ImageStyle, Pressable, View, ViewStyle } from "react-native"
 import { Button, Card, Icon, Text } from "../../components"
 import { BackButton } from "../../components/back-button"
@@ -9,6 +9,7 @@ import mealStore from "../../store/meal-selection.store"
 import { colors, spacing } from "../../theme"
 import { marginL, marginR, marginT } from "../../theme/utils"
 import { TagPill } from "../onboarding/components/tag-pill.component"
+import { fetchItems } from "../../services/api/items/items"
 const fp = require("../../../assets/images/food-plate.png")
 const fp3 = require("../../../assets/images/fp3.jpeg")
 const fp5 = require("../../../assets/images/fp5.webp")
@@ -51,14 +52,30 @@ const MealData = [
 ]
 
 export const MealList = ({ navigation }: MealListProps) => {
+  const [items, setItems] = useState([]);
+
   const addMeal = mealStore((state) => state.addMeal)
-  const meals = mealStore((state) => state.meals)
+  const meals = mealStore((state) => state.meals);
+
+  const getItems = async() => {
+    try {
+      const {data} = await fetchItems();
+      setItems(data.data.rows)
+    } catch (error) {
+      console.log(error)
+    }
+    
+  }
+
+  useEffect(() => {
+        getItems()
+  }, [])
 
   return (
     <>
       <StatusBar style={"dark"} />
       <FlatList
-        data={MealData}
+        data={items}
         style={$flatListMargin}
         keyExtractor={(item) => item.name}
         ListHeaderComponent={<BackButton onPress={navigation.goBack} style={marginL.small} />}
