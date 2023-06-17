@@ -1,5 +1,5 @@
 {
-  "name": "meal-service",
+  "name": "hello-world",
   "version": "0.0.1",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
@@ -65,16 +65,14 @@
     "react-native-bootsplash": "4.3.2",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-modal": "^13.0.1",
-    "react-native-reanimated": "^3.1.0",
+    "react-native-reanimated": "~2.12.0",
     "react-native-safe-area-context": "4.4.1",
     "react-native-screens": "~3.18.0",
     "react-native-svg": "13.4.0",
     "reactotron-mst": "3.1.4",
     "reactotron-react-js": "^3.3.7",
     "reactotron-react-native": "5.0.3",
-    "validator": "^13.9.0",
     "victory-native": "^36.6.8",
-    "zod": "^3.21.4",
     "zustand": "^4.3.5"
   },
   "devDependencies": {
