@@ -55,6 +55,7 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
    * Style overrides for the input wrapper
    */
   inputWrapperStyle?: StyleProp<ViewStyle>
+  error?: string
   /**
    * An optional component to render on the right side of the input.
    * Example: `RightAccessory={(props) => <Icon icon="ladybug" containerStyle={props.style} color={props.editable ? colors.textDim : colors.text} />}`
@@ -84,6 +85,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     LeftAccessory,
     HelperTextProps,
     LabelTextProps,
+    error,
     style: $inputStyleOverride,
     containerStyle: $containerStyleOverride,
     inputWrapperStyle: $inputWrapperStyleOverride,
@@ -93,7 +95,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
 
   const disabled = TextInputProps.editable === false || status === "disabled"
 
-  const placeholderContent =  placeholder
+  const placeholderContent = placeholder
 
   const $containerStyles = [$containerStyleOverride]
 
@@ -101,12 +103,14 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
 
   const $inputWrapperStyles = [
     $inputWrapperStyle,
-    status === "error" && { borderColor: colors.error },
+    (status === "error" || !!error) && { borderColor: colors.error },
     TextInputProps.multiline && { minHeight: 112 },
     LeftAccessory && { paddingStart: 0 },
     RightAccessory && { paddingEnd: 0 },
     $inputWrapperStyleOverride,
   ]
+
+  console.log(TextInputProps, "text input")
 
   const $inputStyles = [
     $inputStyle,
@@ -117,7 +121,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
 
   const $helperStyles = [
     $helperStyle,
-    status === "error" && { color: colors.error },
+    (status === "error" || !!error) && { color: colors.error },
     HelperTextProps?.style,
   ]
 
@@ -136,14 +140,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
       onPress={focusInput}
       accessibilityState={{ disabled }}
     >
-      {!!(label) && (
-        <Text
-          preset="formLabel"
-          text={label}
-          {...LabelTextProps}
-          style={$labelStyles}
-        />
-      )}
+      {!!label && <Text preset="formLabel" text={label} {...LabelTextProps} style={$labelStyles} />}
 
       <View style={$inputWrapperStyles}>
         {!!LeftAccessory && (
@@ -176,10 +173,10 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
         )}
       </View>
 
-      {!!(helper) && (
+      {(!!helper || !!error) && (
         <Text
           preset="formHelper"
-          text={helper}
+          text={helper || error}
           {...HelperTextProps}
           style={$helperStyles}
         />
@@ -209,7 +206,6 @@ const $inputStyle: TextStyle = {
   color: colors.text,
   fontSize: 16,
   height: 24,
-  // https://github.com/facebook/react-native/issues/21720#issuecomment-532642093
   paddingVertical: 0,
   paddingHorizontal: 0,
   marginVertical: spacing.extraSmall,

@@ -1,30 +1,49 @@
-import { GLOBAL_CONSTANTS } from "./../../utils/global-constants"
-import ky from "ky"
-import { loadString } from "../../utils/storage"
+import axios, { AxiosError, AxiosResponse } from "axios";
 
+const fetchClient = () => {
+  const defaultOptions = {
+    baseURL: 'http://localhost:3000',
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const instance = axios.create(defaultOptions);
+  instance.interceptors.request.use(async (config: any) => {
+    // const [token, _error] = await LocalStorage.get(
+    //   GLOBAL_CONSTANTS.lsKeys.token
+    // );
+    config.headers["x-identity-token"] = '';
 
-
-export class Api {
-   static baseApi =  ky.create({
-        prefixUrl: "http://localhost:3002",
-        hooks: {
-          beforeRequest: [
-            async (request) => {
-                const token = await loadString(GLOBAL_CONSTANTS.token)
-                request.headers.set("authorization", token)
-            },
-          ],
-        },
-      });
-    
-    static  post(url: string, payload) {
-        return this.baseApi.post(url, {json: payload}).json()
+    return config;
+  });
+  instance.interceptors.response.use(
+    async (response: AxiosResponse) => {
+      // const [encryption, _enc_error] = await LocalStorage.get(
+      //   GLOBAL_CONSTANTS.lsKeys.encryption
+      // );
+      // if (encryption) {
+      //   // response.data = decrypt(response.data)
+      // }
+      return response;
+    },
+    async (err: AxiosError) => {
+      console.log(
+        "api request err-------------------",
+        err?.response?.data,
+        err?.response?.request?._url
+      );
+      // const [token, _error] = await LocalStorage.get(GLOBAL_CONSTANTS.lsKeys.token);
+      if (err?.response?.data === "You have been logged out from this device") {
+        // store.dispatch(handleLogout(true));
       }
+      // if (err?.response?.data === "token expired") {
+      //   store.dispatch(handleLogout(true));
+      // }
+      return Promise.reject(err);
+    }
+  );
+  return instance;
+};
 
-     static get(url: string) {
-        return this.baseApi.get(url).json()
-      }
-}
-
-
-
+const BaseApi = fetchClient()
+export default BaseApi;

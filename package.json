@@ -44,6 +44,7 @@
     "@react-navigation/native": "~6.0.1",
     "@react-navigation/native-stack": "^6.0.2",
     "@react-navigation/stack": "~6.2.1",
+    "axios": "^1.4.0",
     "date-fns": "^2.29.2",
     "expo": "^47.0.0",
     "expo-application": "~5.0.1",
@@ -56,7 +57,7 @@
     "expo-modules-core": "~1.0.4 || ~1.1.0",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
-    "ky": "^0.33.2",
+    "greenbowl-schema": "^0.0.3",
     "mobx": "6.6.0",
     "mobx-react-lite": "3.4.0",
     "mobx-state-tree": "5.1.5",
@@ -73,6 +74,7 @@
     "reactotron-react-js": "^3.3.7",
     "reactotron-react-native": "5.0.3",
     "victory-native": "^36.6.8",
+    "zod": "^3.21.4",
     "zustand": "^4.3.5"
   },
   "devDependencies": {
