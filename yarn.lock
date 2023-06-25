@@ -8135,10 +8135,10 @@ graphql@15.8.0:
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.8.0.tgz#33410e96b012fa3bdb1091cc99a94769db212b38"
   integrity sha512-5gghUc24tP9HRznNpV2+FIoq3xKkj5dTQqf4v0CpdPbFVwFkWoxOM+o+2OC9ZSvjEMTjfmG9QT+gcvggTwW1zw==
 
-greenbowl-schema@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/greenbowl-schema/-/greenbowl-schema-0.0.3.tgz#59fdaf173f6ef248fedac3cef214c042c1b7510e"
-  integrity sha512-j95RohmekEPJ65YPD6iLlqapYwNXf/9tjGGtICrjvyS/sXicycKTg/KolqhFJ5xeZZtjBXSaC6QU3AvPZhcW6g==
+greenbowl-schema@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/greenbowl-schema/-/greenbowl-schema-0.1.4.tgz#76ce0675a23dbcc999f89a0df314680fa47159f6"
+  integrity sha512-k42X2RtZ4H0IMMK63LvjEEf992D2QSL+c+1fD/gfHTtcgVyi3KwVJ1p3g0WI6TazwIu9gBFOJi41TcqoSdDWzA==
   dependencies:
     zod "3.21.4"
 

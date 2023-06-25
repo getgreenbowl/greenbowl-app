@@ -1,5 +1,47 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
+export class Storage {
+
+  static async set(key: string, value: any): Promise<boolean> {
+    try {
+      await AsyncStorage.setItem(key, JSON.stringify(value))
+      return true
+    } catch {
+      return false
+    }
+  }
+
+  static async get(key: string): Promise<any | null> {
+    try {
+      const almostThere = await AsyncStorage.getItem(key)
+      return JSON.parse(almostThere)
+    } catch {
+      return null
+    }
+  }
+
+  /**
+ * Removes something from storage.
+ *
+ * @param key The key to kill.
+ */
+static async remove(key: string): Promise<void> {
+  try {
+    await AsyncStorage.removeItem(key)
+  } catch {}
+}
+
+/**
+ * Burn it all to the ground.
+ */
+static async clear(): Promise<void> {
+  try {
+    await AsyncStorage.clear()
+  } catch {}
+}
+
+}
+
 /**
  * Loads a string from storage.
  *

@@ -1,47 +1,52 @@
-import { observer } from "mobx-react-lite"
-import React, { FC, useEffect, useMemo, useRef, useState } from "react"
-import { TextInput, TextStyle, ViewStyle } from "react-native"
+import { v_user as vUser } from "greenbowl-schema/index.js"
+import React, { FC, useMemo, useRef, useState } from "react"
+import { TextInput, TextStyle, ToastAndroid, ViewStyle } from "react-native" // eslint-disable-line
 import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "../../components"
 import { Box } from "../../components/box"
 import { Link } from "../../components/link-text"
-import { useStores } from "../../models"
+import { useForm } from "../../hooks/use-form/user-form"
 import { AppStackScreenProps } from "../../navigators"
+import { loginUser } from "../../services/api/auth/auth.api"
 import { colors, spacing } from "../../theme"
 import { GLOBAL_CONSTANTS } from "../../utils/global-constants"
-
+import { Storage } from "../../utils/storage"
+import { StorageKeys } from "../../utils/storage/storage-keys"
+import { observer } from "mobx-react-lite"
+import { useStores } from "../../models"
 interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
 
-export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_props) {
+export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(props) {
   const authPasswordInput = useRef<TextInput>()
   const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [attemptsCount, setAttemptsCount] = useState(0)
   const {
     authenticationStore: {
-      authPassword,
-      setAuthEmail,
-      setAuthPassword,
-      setAuthToken,
-      validationErrors,
+      setAuthToken
     },
-  } = useStores()
+  } = useStores();
 
-  const errors: typeof validationErrors = isSubmitted ? validationErrors : ({} as any)
+  const { getRnInputProps, ...form } = useForm({
+    initialValues: {
+      mobile: null,
+      password: null,
+    },
+    rules: vUser.pick({ mobile: true, password: true }),
+  })
 
-  function login() {
-    setIsSubmitted(true)
-    setAttemptsCount(attemptsCount + 1)
+  const login = async () => {
+    try {
+      const valid = form.validate()
+      if (!valid) {
+        return
+      }
 
-    // if (Object.values(validationErrors).some((v) => !!v)) return
-
-    // Make a request to your server to get an authentication token.
-    // If successful, reset the fields and set the token.
-    setIsSubmitted(false)
-    setAuthPassword("")
-    setAuthEmail("")
-
-    // We'll mock this with a fake token.
-    setAuthToken(String(Date.now()))
+      const { data } = await loginUser(form.values);
+      form.reset();
+      setAuthToken(data.data.token);
+      Storage.set(StorageKeys.token, data.data.token);
+      props.navigation.navigate('Onboarding')
+    } catch (error: any) {      
+      ToastAndroid.show(error.data || "Something went wrong", ToastAndroid.SHORT)
+    }
   }
 
   const PasswordRightAccessory = useMemo(
@@ -58,13 +63,6 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
       },
     [isAuthPasswordHidden],
   )
-
-  useEffect(() => {
-    return () => {
-      setAuthPassword("")
-      setAuthEmail("")
-    }
-  }, [])
 
   return (
     <Screen
@@ -88,12 +86,11 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
         keyboardType="numeric"
         label="Mobile No."
         placeholder="enter your mobile number"
+        {...getRnInputProps("mobile")}
       />
 
       <TextField
         ref={authPasswordInput}
-        value={authPassword}
-        onChangeText={setAuthPassword}
         containerStyle={$textField}
         autoCapitalize="none"
         autoComplete="password"
@@ -101,10 +98,8 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
         secureTextEntry={isAuthPasswordHidden}
         label="Password"
         placeholder="enter your password"
-        helper={errors?.authPassword}
-        status={errors?.authPassword ? "error" : undefined}
-        onSubmitEditing={login}
         RightAccessory={PasswordRightAccessory}
+        {...getRnInputProps("password")}
       />
 
       <Button
@@ -119,7 +114,7 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
           Don&apos;t have an account?&nbsp;
           <Link
             onPress={() => {
-              _props.navigation.push("Register")
+              props.navigation.push("Register")
             }}
           >
             Register now!
@@ -150,5 +145,3 @@ const $textField: ViewStyle = {
 const $tapButton: ViewStyle = {
   marginTop: spacing.extraSmall,
 }
-
-// @demo remove-file

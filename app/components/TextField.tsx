@@ -110,8 +110,6 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     $inputWrapperStyleOverride,
   ]
 
-  console.log(TextInputProps, "text input")
-
   const $inputStyles = [
     $inputStyle,
     disabled && { color: colors.textDim },

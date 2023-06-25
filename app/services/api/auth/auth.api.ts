@@ -1,15 +1,10 @@
 import BaseApi from "../base";
-import {PartialUser, R_User as rUser} from "greenbowl-schema/src/user/user"
+import {PartialUser, R_Login as LoginResponse, TUser} from "greenbowl-schema/index.js"
 
-export type LoginType = {
-    email: string,
-    password: string
-}
-
-export const login = (payload: LoginType) => {
-    return BaseApi.post('/user/login', payload)
+export const loginUser = (payload: Pick<TUser, 'mobile' | 'password'>)  => {
+    return BaseApi.post<LoginResponse>('/user/login', payload)
 }
 
 export const registerUser = (payload: PartialUser ) => {
-    return BaseApi.post<rUser>('/user/register',payload)
+    return BaseApi.post('/user/register',payload)
 }

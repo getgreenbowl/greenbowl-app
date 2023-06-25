@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 
 const fetchClient = () => {
   const defaultOptions = {
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://192.168.29.193:3000',
     headers: {
       "Content-Type": "application/json",
     },
@@ -39,7 +39,7 @@ const fetchClient = () => {
       // if (err?.response?.data === "token expired") {
       //   store.dispatch(handleLogout(true));
       // }
-      return Promise.reject(err);
+      return Promise.reject(err.response);
     }
   );
   return instance;

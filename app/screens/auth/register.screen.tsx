@@ -1,13 +1,14 @@
 import React, { useMemo, useState } from "react"
-import { Alert, TextStyle, ViewStyle } from "react-native"
+import { TextStyle, ToastAndroid, ViewStyle } from "react-native" // eslint-disable-line
 import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "../../components"
 import { Box } from "../../components/box"
 import { Link } from "../../components/link-text"
 import { AppStackScreenProps } from "../../navigators"
 import { colors, spacing } from "../../theme"
 import { useForm } from "../../hooks/use-form/user-form"
-import { v_user as vUser } from "greenbowl-schema/src/user/user"
 import { registerUser } from "../../services/api/auth/auth.api"
+import { v_user as vUser } from "greenbowl-schema/index.js"
+
 interface RegisterScreenProps extends AppStackScreenProps<"Register"> {}
 
 export const RegisterScreen = (props: RegisterScreenProps) => {
@@ -28,11 +29,15 @@ export const RegisterScreen = (props: RegisterScreenProps) => {
         return
       }
 
-      await registerUser(form.values)
-      // decide what to do after register
-      Alert.alert("Register", "register")
+      await registerUser(form.values);
+      form.reset();
+      ToastAndroid.show('Registered', ToastAndroid.SHORT);
+      props.navigation.navigate('Login');
     } catch (error) {
-      Alert.alert("Error", "Something went wrong!")
+      console.log(error);
+      
+      // ToastAndroid.show(error.data || "Something went wrong", ToastAndroid.SHORT)
+
     }
   }
 
@@ -104,7 +109,7 @@ export const RegisterScreen = (props: RegisterScreenProps) => {
           Already have an account ?&nbsp;
           <Link
             onPress={() => {
-              props.navigation.push("Login")
+              props.navigation.navigate("Login")
             }}
           >
             Login

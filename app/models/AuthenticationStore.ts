@@ -10,38 +10,14 @@ export const AuthenticationStoreModel = types
   .views((store) => ({
     get isAuthenticated() {
       return !!store.authToken
-    },
-    get validationErrors() {
-      return {
-        authEmail: (function () {
-          if (store.authEmail.length === 0) return "this field is required"
-          if (store.authEmail.length < 6) return "must be at least 6 characters"
-          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(store.authEmail))
-            return "must be a valid email address"
-          return ""
-        })(),
-        authPassword: (function () {
-          if (store.authPassword.length === 0) return "this field is required"
-          if (store.authPassword.length < 6) return "must be at least 6 characters"
-          return ""
-        })(),
-      }
-    },
+    }
   }))
   .actions((store) => ({
     setAuthToken(value?: string) {
       store.authToken = value
     },
-    setAuthEmail(value: string) {
-      store.authEmail = value.replace(/ /g, "")
-    },
-    setAuthPassword(value: string) {
-      store.authPassword = value.replace(/ /g, "")
-    },
     logout() {
       store.authToken = undefined
-      store.authEmail = ""
-      store.authPassword = ""
     },
   }))
   .preProcessSnapshot((snapshot) => {
