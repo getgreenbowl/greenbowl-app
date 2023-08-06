@@ -13,6 +13,7 @@ import { Storage } from "../../utils/storage"
 import { StorageKeys } from "../../utils/storage/storage-keys"
 import { observer } from "mobx-react-lite"
 import { useStores } from "../../models"
+import { View } from "react-native"
 interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
 
 export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(props) {
@@ -70,12 +71,28 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(p
       contentContainerStyle={$screenContentContainer}
       safeAreaEdges={["top", "bottom"]}
     >
-      <Text
+      {/* <Text
         testID="login-heading"
         text={GLOBAL_CONSTANTS.brandName}
         preset="heading"
         style={$signIn}
+      /> */}
+      <View 
+      style={{
+        width: 50,
+        height: 50,
+        backgroundColor: '#064e3b',
+        borderRadius: 4,
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
+      >
+         <Text
+        preset="subheading"
+        text="gb"
+        style={{color: 'white', fontSize: 27}}
       />
+      </View>
       <Text
         preset="subheading"
         text="Log in to your account using your mobile no."

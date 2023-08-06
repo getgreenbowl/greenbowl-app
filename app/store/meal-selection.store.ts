@@ -2,6 +2,7 @@ import { create } from "zustand"
 
 interface MealStore {
   meals: string[]
+  mealList: any[]
   days: {
     lunch: string[]
     dinner: string[]
@@ -16,30 +17,35 @@ interface MealStore {
   addLunchTiming: (lunchTime: string) => void
   addDinnerTiming: (dinnerTime: string) => void
   totalMeals: () => number
-  lunchDaysInWords: () => string,
-  dinnerDaysInWords: () => string,
-  dinnerMessage: () => string,
-  lunchMessage: () => string,
+  lunchDaysInWords: () => string
+  dinnerDaysInWords: () => string
+  dinnerMessage: () => string
+  lunchMessage: () => string
+  setMealList: (meals: any[]) => void
 }
 
 const mealStore = create<MealStore>((set, get) => ({
   meals: [],
+  mealList: [],
   days: {
     lunch: [],
     dinner: [],
   },
   timing: {
-    lunch: '',
-    dinner: '',
+    lunch: "",
+    dinner: "",
   },
-  totalMeals:() => get().meals.length,
+  totalMeals: () => get().meals.length,
   lunchDaysInWords: () => get().days.lunch.toString(),
   dinnerDaysInWords: () => get().days.dinner.toString(),
-  dinnerMessage: () => {    
+  dinnerMessage: () => {
     return `${get().days.dinner.length} days dinner at ${get().timing.dinner}`
   },
   lunchMessage: () => {
     return `${get().days.lunch.length} days lunch at ${get().timing.lunch}`
+  },
+  setMealList: (meals: any[]) => {
+    set((state) => ({ ...state, mealList: meals }))
   },
   addMeal: (mealID: string) =>
     set((state) => {

@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar"
-import React from "react"
+import React, { useEffect } from "react"
 import { FlatList, Image, ImageStyle, Pressable, View, ViewStyle } from "react-native"
 import { Button, Card, Icon, Text } from "../../components"
 import { BackButton } from "../../components/back-button"
@@ -9,56 +9,38 @@ import mealStore from "../../store/meal-selection.store"
 import { colors, spacing } from "../../theme"
 import { marginL, marginR, marginT } from "../../theme/utils"
 import { TagPill } from "../onboarding/components/tag-pill.component"
+import { Fetcher } from "../../services/api/fetcher"
 const fp = require("../../../assets/images/food-plate.png")
-const fp3 = require("../../../assets/images/fp3.jpeg")
-const fp5 = require("../../../assets/images/fp5.webp")
 
 interface MealListProps extends AppStackScreenProps<"mealList"> {}
-
-const MealData = [
-  {
-    name: "White sauce pasta",
-    img: fp,
-  },
-  {
-    name: "Mexican corn beans",
-    img: fp,
-  },
-  {
-    name: "Hakka noodles",
-    img: fp3,
-  },
-  {
-    name: "Jeera rice, daal fry",
-    img: fp5,
-  },
-  {
-    name: "White sauce pasta2",
-    img: fp,
-  },
-  {
-    name: "Mexican corn beans1",
-    img: fp,
-  },
-  {
-    name: "Hakka noodles1",
-    img: fp3,
-  },
-  {
-    name: "Jeera rice, daal fry1",
-    img: fp5,
-  },
-]
 
 export const MealList = ({ navigation }: MealListProps) => {
   const addMeal = mealStore((state) => state.addMeal)
   const meals = mealStore((state) => state.meals)
+  const mealList = mealStore((state) => state.mealList)
+  const setMealList = mealStore((state) => state.setMealList)
+
+  useEffect(() => {
+    fetchMeals()
+    return () => {
+      //
+    }
+  }, [])
+
+  const fetchMeals = async () => {
+    try {
+      const meals = await Fetcher.get("/items/simple-list")
+      setMealList(meals.data.data)
+    } catch (error) {
+      console.log(error, "check me")
+    }
+  }
 
   return (
     <>
       <StatusBar style={"dark"} />
       <FlatList
-        data={MealData}
+        data={mealList}
         style={$flatListMargin}
         keyExtractor={(item) => item.name}
         ListHeaderComponent={<BackButton onPress={navigation.goBack} style={marginL.small} />}
@@ -87,7 +69,7 @@ const MealCard = ({ item, navigation, addMeal, added }) => {
     <Pressable
       onPress={() =>
         navigation.navigate("mealDetail", {
-          name: item.name,
+          id: item.id,
         })
       }
       style={$mealCard}
@@ -100,7 +82,7 @@ const MealCard = ({ item, navigation, addMeal, added }) => {
               <Group>
                 <View>
                   <Text text={item.name} size="xs" weight="semiBold" />
-                  <Text text="this is the description of salad" size="xxs" />
+                  <Text text={item.description} size="xxs" />
                 </View>
               </Group>
 
@@ -111,7 +93,7 @@ const MealCard = ({ item, navigation, addMeal, added }) => {
               </Group>
             </View>
             <View style={$imageContainer}>
-              <Image source={item.img} style={$imageSize} />
+              <Image source={fp} style={$imageSize} />
               <Button
                 style={$buttonAdd}
                 onPress={() => addMeal(item.name)}

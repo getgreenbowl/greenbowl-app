@@ -1,22 +1,35 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Image, ImageStyle, View, ViewStyle } from "react-native"
 import { Button, Screen, Text } from "../../components"
 import { BackButton } from "../../components/back-button"
 import { Group } from "../../components/group.component"
-import mealStore from "../../store/meal-selection.store"
 import { spacing } from "../../theme"
 import { margin, marginT } from "../../theme/utils"
 import { TagPill } from "../onboarding/components/tag-pill.component"
+import { Fetcher } from "../../services/api/fetcher"
+import { TItem } from "greenbowl-schema"
 
 const fp = require("../../../assets/images/food-plate.png")
 
 export const MealDetail = ({ navigation, route }) => {
-  const addMeal = mealStore((state) => state.addMeal)
-  const meals = mealStore((state) => state.meals)
-  const { name } = route.params
+  // const addMeal = mealStore((state) => state.addMeal)
+  const [meal, setMeal] = useState(null)
+  const { id } = route.params
 
-  const addToMenu = () => {
-    addMeal(name)
+  useEffect(() => {
+    fetchMeal()
+    return () => {
+      // cancel request
+    }
+  }, [])
+
+  const fetchMeal = async () => {
+    try {
+      const meals = await Fetcher.get<TItem>(`/items/details/${id}`)
+      setMeal(meals.data.data)
+    } catch (error) {
+      console.log(error, "check me")
+    }
   }
 
   return (
@@ -26,7 +39,7 @@ export const MealDetail = ({ navigation, route }) => {
           <BackButton onPress={navigation.goBack} />
           <Group content="center">
             <Text size="lg" weight="semiBold">
-              {name}
+              {meal?.name}
             </Text>
           </Group>
 
@@ -37,13 +50,13 @@ export const MealDetail = ({ navigation, route }) => {
                 <View style={margin.medium}>
                   <Text size="md">Protien</Text>
                   <Text size="sm" weight="semiBold">
-                    45gm
+                    {meal?.protien}gm
                   </Text>
                 </View>
                 <View style={margin.medium}>
                   <Text size="md">Energy</Text>
                   <Text size="sm" weight="semiBold">
-                    45gm
+                    {meal?.energy}gm
                   </Text>
                 </View>
               </Group>
@@ -51,13 +64,13 @@ export const MealDetail = ({ navigation, route }) => {
                 <View style={margin.medium}>
                   <Text size="md">Fat</Text>
                   <Text size="sm" weight="semiBold">
-                    45gm
+                    {meal?.fat}gm
                   </Text>
                 </View>
                 <View style={margin.medium}>
                   <Text size="md">Carbs</Text>
                   <Text size="sm" weight="semiBold">
-                    45gm
+                    {meal?.carbs}gm
                   </Text>
                 </View>
               </Group>
@@ -67,34 +80,22 @@ export const MealDetail = ({ navigation, route }) => {
           <View style={marginT.medium}>
             <Text preset="subheading">Description</Text>
             <Text size="xs" ellipsizeMode="tail" numberOfLines={3}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius similique ab excepturi
-              voluptatum illo quaerat, quo asperiores quam provident molestias.
+              {meal?.description}
             </Text>
           </View>
 
-          <View style={marginT.large}>
-            <Text preset="subheading">Ingredients</Text>
-            <Group wrap>
-              {[
-                "fortune oil",
-                "potatoe",
-                "onion",
-                "garlic",
-                "salt",
-                "chillie",
-                "wheat",
-                "rice",
-              ].map((item) => {
-                return <TagPill tag={item} key={item} selected />
-              })}
-            </Group>
-          </View>
+          {meal?.ingredients.length ? (
+            <View style={marginT.large}>
+              <Text preset="subheading">Ingredients</Text>
+              <Group wrap>
+                {meal?.ingredients.map((item) => {
+                  return <TagPill tag={item.Ingredient.name} key={item.name} selected />
+                })}
+              </Group>
+            </View>
+          ) : null}
         </View>
-        <Button
-          text={meals.includes(name) ? "Remove from menu" : "Add to your name"}
-          preset="reversed"
-          onPress={addToMenu}
-        />
+        <Button text="Bookmark" preset="reversed" />
       </View>
     </Screen>
   )
