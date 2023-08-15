@@ -1,6 +1,6 @@
-import { v_user as vUser } from "greenbowl-schema/index.js"
+import { v_user as vUser } from "greenbowl-schema"
 import React, { FC, useMemo, useRef, useState } from "react"
-import { TextInput, TextStyle, ToastAndroid, ViewStyle } from "react-native" // eslint-disable-line
+import { TextInput, TextStyle, ToastAndroid, ViewStyle, View } from "react-native" // eslint-disable-line
 import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "../../components"
 import { Box } from "../../components/box"
 import { Link } from "../../components/link-text"
@@ -8,22 +8,20 @@ import { useForm } from "../../hooks/use-form/user-form"
 import { AppStackScreenProps } from "../../navigators"
 import { loginUser } from "../../services/api/auth/auth.api"
 import { colors, spacing } from "../../theme"
-import { GLOBAL_CONSTANTS } from "../../utils/global-constants"
 import { Storage } from "../../utils/storage"
-import { StorageKeys } from "../../utils/storage/storage-keys"
 import { observer } from "mobx-react-lite"
 import { useStores } from "../../models"
-import { View } from "react-native"
+import { Group } from "../../components/group.component"
+import { marginB } from "../../theme/utils"
+import Logo from "../../components/logo"
 interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
 
 export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(props) {
   const authPasswordInput = useRef<TextInput>()
   const [isAuthPasswordHidden, setIsAuthPasswordHidden] = useState(true)
   const {
-    authenticationStore: {
-      setAuthToken
-    },
-  } = useStores();
+    authenticationStore: { setAuthToken },
+  } = useStores()
 
   const { getRnInputProps, ...form } = useForm({
     initialValues: {
@@ -40,12 +38,15 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(p
         return
       }
 
-      const { data } = await loginUser(form.values);
-      form.reset();
-      setAuthToken(data.data.token);
-      Storage.set(StorageKeys.token, data.data.token);
-      props.navigation.navigate('Onboarding')
-    } catch (error: any) {      
+      const { data } = await loginUser(form.values)
+      form.reset()
+      console.log(data.data.user, "this is userdata")
+
+      setAuthToken(data.data.token)
+      Storage.set("token", data.data.token)
+      Storage.set("user", data.data.user)
+      props.navigation.navigate("Onboarding")
+    } catch (error: any) {
       ToastAndroid.show(error.data || "Something went wrong", ToastAndroid.SHORT)
     }
   }
@@ -71,33 +72,17 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(p
       contentContainerStyle={$screenContentContainer}
       safeAreaEdges={["top", "bottom"]}
     >
-      {/* <Text
-        testID="login-heading"
-        text={GLOBAL_CONSTANTS.brandName}
-        preset="heading"
-        style={$signIn}
-      /> */}
-      <View 
-      style={{
-        width: 50,
-        height: 50,
-        backgroundColor: '#064e3b',
-        borderRadius: 4,
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}
-      >
-         <Text
-        preset="subheading"
-        text="gb"
-        style={{color: 'white', fontSize: 27}}
-      />
-      </View>
-      <Text
-        preset="subheading"
-        text="Log in to your account using your mobile no."
-        style={$enterDetails}
-      />
+      <Group style={marginB.large}>
+        <Logo />
+        <View>
+          <Text preset="heading" text="greenbowl" style={$enterDetails} />
+          <Text
+            preset="subheading"
+            text="Welcome back. Login to your account."
+            style={$enterDetails}
+          />
+        </View>
+      </Group>
       <TextField
         containerStyle={$textField}
         keyboardType="numeric"
@@ -147,12 +132,10 @@ const $screenContentContainer: ViewStyle = {
   paddingHorizontal: spacing.large,
 }
 
-const $signIn: TextStyle = {
-  marginBottom: spacing.small,
-}
-
 const $enterDetails: TextStyle = {
-  marginBottom: spacing.huge,
+  marginLeft: spacing.small,
+  flex: 1,
+  flexWrap: "wrap",
 }
 
 const $textField: ViewStyle = {

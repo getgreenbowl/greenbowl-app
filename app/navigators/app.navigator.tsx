@@ -70,7 +70,7 @@ const AppStack = observer(function AppStack() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
-      initialRouteName={isAuthenticated ? "Onboarding" : "Login"} // @demo remove-current-line
+      initialRouteName={isAuthenticated ? "Onboarding" : "Register"} // @demo remove-current-line
     >
       {/* @demo remove-block-start */}
       {isAuthenticated ? (
@@ -79,9 +79,9 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="Onboarding" component={Onboarding} />
           {/* @demo remove-block-start */}
           <Stack.Screen name="main" component={MainNavigator} />
-          <Stack.Screen name='selectDays' component={SelectDays} />
-          <Stack.Screen name='mealList' component={MealList} />
-          <Stack.Screen name='mealDetail' component={MealDetail} />
+          <Stack.Screen name="selectDays" component={SelectDays} />
+          <Stack.Screen name="mealList" component={MealList} />
+          <Stack.Screen name="mealDetail" component={MealDetail} />
         </>
       ) : (
         <>

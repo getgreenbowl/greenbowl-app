@@ -1,8 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { TUser } from "greenbowl-schema"
+
+export const StorageKeys = {
+  token: "greenbowl-token",
+  user: "user",
+} as const
 
 export class Storage {
-
-  static async set(key: string, value: any): Promise<boolean> {
+  static async set(key: keyof typeof StorageKeys, value: any): Promise<boolean> {
     try {
       await AsyncStorage.setItem(key, JSON.stringify(value))
       return true
@@ -11,7 +16,7 @@ export class Storage {
     }
   }
 
-  static async get(key: string): Promise<any | null> {
+  static async get(key: keyof typeof StorageKeys): Promise<any | null> {
     try {
       const almostThere = await AsyncStorage.getItem(key)
       return JSON.parse(almostThere)
@@ -21,25 +26,28 @@ export class Storage {
   }
 
   /**
- * Removes something from storage.
- *
- * @param key The key to kill.
- */
-static async remove(key: string): Promise<void> {
-  try {
-    await AsyncStorage.removeItem(key)
-  } catch {}
-}
+   * Removes something from storage.
+   *
+   * @param key The key to kill.
+   */
+  static async remove(key: keyof typeof StorageKeys): Promise<void> {
+    try {
+      await AsyncStorage.removeItem(key)
+    } catch {}
+  }
 
-/**
- * Burn it all to the ground.
- */
-static async clear(): Promise<void> {
-  try {
-    await AsyncStorage.clear()
-  } catch {}
-}
+  /**
+   * Burn it all to the ground.
+   */
+  static async clear(): Promise<void> {
+    try {
+      await AsyncStorage.clear()
+    } catch {}
+  }
 
+  static async currentUser(): Promise<TUser | null> {
+    return this.get("user")
+  }
 }
 
 /**

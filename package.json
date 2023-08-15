@@ -57,7 +57,7 @@
     "expo-modules-core": "~1.0.4 || ~1.1.0",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
-    "greenbowl-schema": "^0.1.8",
+    "greenbowl-schema": "file:/Users/vishalacharya/Documents/gb/nx-gb/libs/gb-schema/src",
     "mobx": "6.6.0",
     "mobx-react-lite": "3.4.0",
     "mobx-state-tree": "5.1.5",

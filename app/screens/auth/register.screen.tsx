@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react"
-import { TextStyle, ToastAndroid, ViewStyle } from "react-native" // eslint-disable-line
+import { TextStyle, ToastAndroid, View, ViewStyle } from "react-native" // eslint-disable-line
 import { Button, Icon, Screen, Text, TextField, TextFieldAccessoryProps } from "../../components"
 import { Box } from "../../components/box"
 import { Link } from "../../components/link-text"
@@ -7,7 +7,10 @@ import { AppStackScreenProps } from "../../navigators"
 import { colors, spacing } from "../../theme"
 import { useForm } from "../../hooks/use-form/user-form"
 import { registerUser } from "../../services/api/auth/auth.api"
-import { v_user as vUser } from "greenbowl-schema/index.js"
+import { v_user as vUser } from "greenbowl-schema"
+import Logo from "../../components/logo"
+import { Group } from "../../components/group.component"
+import { marginB } from "../../theme/utils"
 
 interface RegisterScreenProps extends AppStackScreenProps<"Register"> {}
 
@@ -29,15 +32,14 @@ export const RegisterScreen = (props: RegisterScreenProps) => {
         return
       }
 
-      await registerUser(form.values);
-      form.reset();
-      ToastAndroid.show('Registered', ToastAndroid.SHORT);
-      props.navigation.navigate('Login');
+      await registerUser(form.values)
+      form.reset()
+      ToastAndroid.show("Registered", ToastAndroid.SHORT)
+      props.navigation.navigate("Login")
     } catch (error) {
-      console.log(error);
-      
-      // ToastAndroid.show(error.data || "Something went wrong", ToastAndroid.SHORT)
+      console.log(error)
 
+      // ToastAndroid.show(error.data || "Something went wrong", ToastAndroid.SHORT)
     }
   }
 
@@ -62,12 +64,18 @@ export const RegisterScreen = (props: RegisterScreenProps) => {
       contentContainerStyle={$screenContentContainer}
       safeAreaEdges={["top", "bottom"]}
     >
-      <Text testID="login-heading" text="Meal Service" preset="heading" style={$signIn} />
-      <Text
-        preset="subheading"
-        text="Get your daily supply of quality food. Register now !"
-        style={$enterDetails}
-      />
+      <Group style={marginB.large}>
+        <Logo />
+        <View>
+          <Text preset="heading" text="greenbowl" style={$enterDetails} />
+          <Text
+            preset="subheading"
+            text="Get your daily supply of healthier food."
+            style={$enterDetails}
+          />
+        </View>
+      </Group>
+
       <TextField
         containerStyle={$textField}
         autoCapitalize="none"
@@ -125,12 +133,11 @@ const $screenContentContainer: ViewStyle = {
   paddingHorizontal: spacing.large,
 }
 
-const $signIn: TextStyle = {
-  marginBottom: spacing.small,
-}
-
 const $enterDetails: TextStyle = {
-  marginBottom: spacing.huge,
+  // marginBottom: spacing.huge,
+  marginLeft: spacing.small,
+  flex: 1,
+  flexWrap: "wrap",
 }
 
 const $textField: ViewStyle = {

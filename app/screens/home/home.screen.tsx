@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { TextStyle, ViewStyle } from "react-native"
 import Modal from "react-native-modal"
 import Animated, { FadeInDown } from "react-native-reanimated"
@@ -9,6 +9,8 @@ import { colors, spacing } from "../../theme"
 import { AddressOptions } from "./components/address-options"
 import { ScheduleYourMeal } from "./components/schedule-your-meal"
 import { YourMeal } from "./components/your-meal"
+import { useCurrentUser } from "../../hooks/use-current-user"
+import { preferenceStore } from "../../store/preference.store"
 
 interface HomeProps extends AppStackScreenProps<"main"> {}
 
@@ -16,6 +18,7 @@ export const HomeScreen = (props: HomeProps) => {
   const activeCard = appStore((state) => state.active)
   const toggleActive = appStore((state) => state.toggleActive)
   const [showAddress, setshowAddress] = useState(false)
+  const currentUser = useCurrentUser()
   const [address, setadress] = useState<{ address: string; type: "work" | "home" | "other" }>({
     address: "",
     type: "other",
@@ -55,7 +58,7 @@ export const HomeScreen = (props: HomeProps) => {
         contentContainerStyle={$container}
       >
         <Text preset="heading" style={$title} onPress={toggleActive}>
-          Hi, vishal
+          Hi, {currentUser?.name}
         </Text>
         <Text style={$tagline} size="sm">
           Healthy food for busy people.

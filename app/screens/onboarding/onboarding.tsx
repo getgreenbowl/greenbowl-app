@@ -1,31 +1,36 @@
 import { observer } from "mobx-react-lite"
-import React, { FC } from "react"
-import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import { Button, Icon, Text } from "../../components"
-import { Group } from "../../components/group.component";
-import { useStores } from "../../models"; // @demo remove-current-line
-import { AppStackScreenProps } from "../../navigators"; // @demo remove-current-line
+import React, { FC, useState } from "react"
+import { TextStyle, View, ViewStyle } from "react-native"
+import Animated, { FadeInDown, FadeInRight } from "react-native-reanimated"
+import { Button, Text } from "../../components"
+import { AppStackScreenProps } from "../../navigators" // @demo remove-current-line
 import { colors, spacing } from "../../theme"
-import { marginR, marginY } from "../../theme/utils"
-import { useHeader } from "../../utils/useHeader"; // @demo remove-current-line
+import { marginY, paddingY } from "../../theme/utils"
+import { TagPill } from "./components/tag-pill.component"
+import { preferenceStore } from "../../store/preference.store"
 
 interface OnboardingProps extends AppStackScreenProps<"Onboarding"> {} // @demo remove-current-line
 
 export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
   _props, // @demo remove-current-line
 ) {
-  // @demo remove-block-start
   const { navigation } = _props
+  const preference = preferenceStore((state) => state)
+  // const [preference, setPreference] = useState({
+  //   days: "",
+  //   breakfast: false,
+  //   lunch: false,
+  //   dinner: false,
+  // })
 
-  const {
-    authenticationStore: { logout },
-  } = useStores()
+  const [active, setActive] = useState(0)
 
-
-  useHeader({
-    onRightPress: logout,
-  })
-  // @demo remove-block-end
+  const handleNext = () => {
+    if (active === 0) {
+      return setActive(1)
+    }
+    navigation.navigate("main")
+  }
 
   return (
     <View style={$container}>
@@ -33,26 +38,66 @@ export const Onboarding: FC<OnboardingProps> = observer(function WelcomeScreen(
         <Text style={$welcomeHeading} size="xl">
           Welcome to greenbowl
         </Text>
-        <Text>Fresh, plant based meals.</Text>
+        <Text>We help you to eat better</Text>
       </View>
-   
 
       <View style={$bottomContainer}>
-      <Group content="center">
-    <Image source={require('../../../assets/images/plant-bowl.gif')} style={$imageMeal} />
-    </Group>
-     
-        <View>
-          <Button
-            LeftAccessory={() => <Icon icon="bell" style={marginR.large} color={colors.purpleBg} />}
-            onPress={() => navigation.navigate('main', { screen: 'home'})}
-            text="I want to subscribe"
-            style={marginY.small}
-          />
-          <Button 
-          LeftAccessory={() => <Icon icon='leaf' color={colors.greenBg} style={marginR.large} />}
-          onPress={() => navigation.navigate('mealList')} text="I want to order" style={marginY.small} />
-        </View>
+        {active === 0 ? (
+          <Animated.View entering={FadeInDown.duration(200)}>
+            <Text>Send me meals for...</Text>
+            <TagPill
+              onPress={() => preference.toggleOption("breakfast")}
+              tag="Breakfast"
+              selected={preference.breakfast}
+              size="large"
+              style={{ ...marginY.small, ...paddingY.small }}
+            />
+            <TagPill
+              onPress={() => preference.toggleOption("lunch")}
+              tag="Lunch"
+              selected={preference.lunch}
+              size="large"
+              style={{ ...marginY.small, ...paddingY.small }}
+            />
+            <TagPill
+              onPress={() => preference.toggleOption("dinner")}
+              tag="Dinner"
+              selected={preference.dinner}
+              size="large"
+              style={{ ...marginY.small, ...paddingY.small }}
+            />
+
+            <Text mute>You can skip a meal before 2 hours of delivery.</Text>
+          </Animated.View>
+        ) : null}
+        {active === 1 ? (
+          <Animated.View entering={FadeInRight.duration(200)}>
+            <Text>Send me healthier food for...</Text>
+            <TagPill
+              onPress={() => preference.setDays("7")}
+              tag="7 days"
+              selected={preference.days === "7"}
+              size="large"
+              style={{ ...marginY.small, ...paddingY.small }}
+            />
+            <TagPill
+              onPress={() => preference.setDays("30")}
+              tag="30 days"
+              selected={preference.days === "30"}
+              size="large"
+              style={{ ...marginY.small, ...paddingY.small }}
+            />
+            <TagPill
+              onPress={() => preference.setDays("60")}
+              tag="60 days"
+              selected={preference.days === "60"}
+              size="large"
+              style={{ ...marginY.small, ...paddingY.small }}
+            />
+            <Text mute>You can skip a meal before 2 hours of delivery.</Text>
+          </Animated.View>
+        ) : null}
+        <Button onPress={handleNext} text="Next" style={marginY.medium} />
       </View>
     </View>
   )
@@ -74,16 +119,13 @@ const $topContainer: ViewStyle = {
 const $bottomContainer: ViewStyle = {
   flexShrink: 1,
   flexGrow: 1,
-  // flexBasis: "43%",
-  backgroundColor: '#fff',
+  backgroundColor: "#fff",
   borderTopLeftRadius: 16,
   borderTopRightRadius: 16,
   paddingHorizontal: spacing.large,
-  justifyContent: "space-around",
+  justifyContent: "center",
 }
 
 const $welcomeHeading: TextStyle = {
   marginBottom: spacing.medium,
 }
-
-const $imageMeal: ImageStyle = {height: 250, width: 250}

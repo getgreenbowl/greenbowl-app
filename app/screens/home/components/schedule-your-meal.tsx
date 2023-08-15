@@ -1,16 +1,21 @@
-import React from "react"
+import React, { useMemo } from "react"
 import { ViewStyle, TextStyle, View, Pressable } from "react-native"
 import { Card, Icon, Text } from "../../../components"
 import { Group } from "../../../components/group.component"
 import { appStore } from "../../../store/app-state.store"
-import mealStore from "../../../store/meal-selection.store"
 import { colors, spacing } from "../../../theme"
+import { preferenceStore } from "../../../store/preference.store"
 
 export const ScheduleYourMeal = ({ handleAction, address }) => {
-  const totalMeals = mealStore((state) => state.totalMeals);
-  const dinnerMessage = mealStore((state) => state.dinnerMessage);
-  const lunchMessage = mealStore((state) => state.lunchMessage);
-  const toggleMeals = appStore((state) => state.toggleActive);
+  const toggleMeals = appStore((state) => state.toggleActive)
+  const preferences = preferenceStore((state) => state)
+
+  const preferenceMessage = useMemo(() => {
+    const { days, breakfast, lunch, dinner } = preferences
+    return `${days} days, ${breakfast ? "Breakfast" : ""} ${lunch ? "Lunch" : ""} ${
+      dinner ? "and Dinner" : ""
+    }`
+  }, [preferences])
 
   return (
     <Card
@@ -22,16 +27,10 @@ export const ScheduleYourMeal = ({ handleAction, address }) => {
       }
       ContentComponent={
         <View>
-          <Pressable onPress={() => handleAction("meal")}>
-            <SingleSelector
-              tx="Choose your meals"
-              value={totalMeals()  ? `${totalMeals()} meals selected` : ''}
-              icon={<Icon icon="mealFastFood" size={22} color={colors.palette.neutral1} />}
-            />
-          </Pressable>
           <Pressable onPress={() => handleAction("days")}>
             <SingleSelector
-              tx="Select days"
+              tx="Preference"
+              value={preferenceMessage}
               icon={<Icon icon="calendar" size={22} color={colors.palette.neutral1} />}
             />
           </Pressable>
